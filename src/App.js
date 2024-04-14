@@ -1,8 +1,14 @@
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+
 function App() {
   return (
-    <div className="App">
-      <h1>Welcome to the Hotel Booking System!</h1>
-    </div>
+    <Router>
+      <Routes>
+        <Route exact path="/" Component={Home} />
+      </Routes>
+    </Router>
   );
 }
 
