@@ -6,15 +6,15 @@
 
 @font-face {
     font-family: 'Italianno';
-    src: url('./utils/fonts/Italianno-Regular.ttf') format('truetype');
+    src: url('./assets/fonts/Italianno-Regular.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'KiwiMaruRegular';
-    src: url('./utils/fonts/KiwiMaru-Regular.ttf') format('truetype');
+    src: url('./assets/fonts/KiwiMaru-Regular.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'KiwiMaruMedium';
-    src: url('./utils/fonts/KiwiMaru-Medium.ttf') format('truetype');
+    src: url('./assets/fonts/KiwiMaru-Medium.ttf') format('truetype');
 }
