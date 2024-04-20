@@ -11,9 +11,9 @@ function App() {
     <React.Fragment>
       <Router>
         <Routes>
-          <Route exact path="/" Component={Home} />
-          <Route exact path="/review" Component={GuestReview} />
-          <Route component={NotFound} />
+          <Route exact path="/" element={<Home />} />
+          <Route exact path="/review" element={<GuestReview />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
     </React.Fragment>

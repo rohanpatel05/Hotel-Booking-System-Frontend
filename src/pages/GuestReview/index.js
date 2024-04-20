@@ -1,5 +1,5 @@
 import React from "react";
-import { LBeigeBackgroundPageWrapper } from "../styles";
+import { LBeigeBackgroundPageWrapper } from "../../config/styles.js";
 import {
   Title,
   ReviewCardsWrapper,

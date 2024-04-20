@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import colors from "../config/colors";
+import colors from "./colors";
 
 export const NavyBackgroundPageWrapper = styled.div`
   background-color: ${colors.navy};

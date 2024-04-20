@@ -1,5 +1,5 @@
 import React from "react";
-import { NavyBackgroundPageWrapper } from "../styles";
+import { NavyBackgroundPageWrapper } from "../../config/styles.js";
 import {
   TopBarWrapper,
   TopBarFiller,
