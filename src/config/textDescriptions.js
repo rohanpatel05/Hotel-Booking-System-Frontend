@@ -24,3 +24,15 @@ export const REVIEWS = [
 
 export const ABOUT_US =
   "Welcome to The Hotel where hospitality meets excellence. With 15 years of experience, we're dedicated to providing unparalleled service and memorable experiences. From our elegantly designed rooms to our world-class amenities, we strive to exceed expectations and create unforgettable stays for our guests.";
+
+export const COMPANY_ADDRESS = "111 Some Street, Mountain View, CA 94040";
+
+export const COMPANY_EMAIL = "email@gmail.com";
+
+export const COMPANY_PHONE_NUMBER = "+1 (123) 456-7890";
+
+export const COMPANY_FACEBOOK = "Facebook";
+
+export const COMPANY_INSTAGRAM = "Instagram";
+
+export const COMPANY_POLICY = "Privacy Policy & Cookies";
