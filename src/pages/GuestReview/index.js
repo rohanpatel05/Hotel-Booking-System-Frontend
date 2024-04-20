@@ -2,7 +2,6 @@ import React from "react";
 import { LBeigeBackgroundPageWrapper } from "../../config/styles.js";
 import {
   Title,
-  ReviewCardsWrapper,
   ReviewCards,
   RevieHeader,
   RevieBody,
@@ -10,22 +9,28 @@ import {
 } from "./GuestReviewElements.js";
 import { REVIEWS } from "../../config/textDescriptions";
 import { CardBody } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
+
 function GuestReview() {
   return (
     <LBeigeBackgroundPageWrapper>
       <Title>What our guests says</Title>
-      <ReviewCardsWrapper>
-        {REVIEWS &&
-          REVIEWS.map((review) => (
-            <ReviewCards key={review.id}>
-              <CardBody>
-                <RevieHeader>“</RevieHeader>
-                <RevieBody>{review.review}</RevieBody>
-                <RevieFooter>{review.guestName}</RevieFooter>
-              </CardBody>
-            </ReviewCards>
-          ))}
-      </ReviewCardsWrapper>
+      <Container>
+        <Row>
+          {REVIEWS &&
+            REVIEWS.map((review) => (
+              <Col md={4} key={review.id}>
+                <ReviewCards>
+                  <CardBody>
+                    <RevieHeader>“</RevieHeader>
+                    <RevieBody>{review.review}</RevieBody>
+                    <RevieFooter>{review.guestName}</RevieFooter>
+                  </CardBody>
+                </ReviewCards>
+              </Col>
+            ))}
+        </Row>
+      </Container>
     </LBeigeBackgroundPageWrapper>
   );
 }

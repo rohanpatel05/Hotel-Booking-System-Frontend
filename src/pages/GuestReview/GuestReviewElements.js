@@ -9,14 +9,8 @@ export const Title = styled.h1`
   text-align: center;
 `;
 
-export const ReviewCardsWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 40px;
-`;
-
 export const ReviewCards = styled(Card)`
-  width: 30%;
+  margin-bottom: 20px;
 
   background-color: ${colors.lightBeige};
   border-color: ${colors.lightBeige};
