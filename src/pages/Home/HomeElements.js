@@ -50,4 +50,11 @@ export const BookNowButton = styled(Button)`
   color: black;
 `;
 
-export const DescriptionTextWrapper = styled.div``;
+export const DescriptionTextWrapper = styled.p`
+  text-align: center;
+  font-family: KiwiMaruRegular;
+  color: ${colors.white};
+  font-size: 50px;
+  white-space: pre-line;
+  padding: 30px 0px;
+`;

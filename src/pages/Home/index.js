@@ -7,7 +7,9 @@ import {
   ButtonWraper,
   AccommodationsButton,
   BookNowButton,
+  DescriptionTextWrapper,
 } from "./HomeElements.js";
+import { WELCOMING_AD } from "../../config/textDescriptions.js";
 
 function Home() {
   return (
@@ -20,6 +22,7 @@ function Home() {
           <BookNowButton>Book Now</BookNowButton>
         </ButtonWraper>
       </TopBarWrapper>
+      <DescriptionTextWrapper>{WELCOMING_AD}</DescriptionTextWrapper>
     </NavyBackgroundPageWrapper>
   );
 }
