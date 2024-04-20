@@ -7,7 +7,7 @@ import {
   RevieHeader,
   RevieBody,
   RevieFooter,
-} from "./GuestReview";
+} from "./GuestReviewElements.js";
 import { REVIEWS } from "../../config/textDescriptions";
 
 function GuestReview() {
