@@ -17,7 +17,7 @@ function GuestReview() {
       <ReviewCardsWrapper>
         {REVIEWS &&
           REVIEWS.map((review) => (
-            <ReviewCards>
+            <ReviewCards key={review.id}>
               <CardBody>
                 <RevieHeader>“</RevieHeader>
                 <RevieBody>{review.review}</RevieBody>
