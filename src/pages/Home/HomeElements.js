@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Button } from "react-bootstrap";
+import colors from "../../config/colors";
 
 export const TopBarWrapper = styled.div`
   padding-top: 10px;
@@ -17,7 +18,7 @@ export const Brand = styled.h1`
   font-family: Italianno;
   font-size: 50px;
 
-  color: #ffffff;
+  color: ${colors.white};
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `;
 
@@ -28,8 +29,8 @@ export const ButtonWraper = styled.div`
 `;
 
 export const AccommodationsButton = styled(Button)`
-  background-color: #395165;
-  border-color: white;
+  background-color: ${colors.navy};
+  border-color: ${colors.white};
   border-radius: 35px;
   font-family: "Inter", sans-serif;
 
@@ -39,8 +40,8 @@ export const AccommodationsButton = styled(Button)`
 `;
 
 export const BookNowButton = styled(Button)`
-  background-color: white;
-  border-color: white;
+  background-color: ${colors.white};
+  border-color: ${colors.white};
   border-radius: 35px;
   font-family: "Inter", sans-serif;
 
@@ -48,3 +49,5 @@ export const BookNowButton = styled(Button)`
   font-weight: bold;
   color: black;
 `;
+
+export const DescriptionTextWrapper = styled.div``;
