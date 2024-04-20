@@ -8,8 +8,10 @@ import {
   AccommodationsButton,
   BookNowButton,
   DescriptionTextWrapper,
+  LandscapeImage,
 } from "./HomeElements.js";
 import { WELCOMING_AD } from "../../config/textDescriptions.js";
+import LandscapePhoto from "../../assets/images/ResortPlaceholder.png";
 
 function Home() {
   return (
@@ -23,6 +25,7 @@ function Home() {
         </ButtonWraper>
       </TopBarWrapper>
       <DescriptionTextWrapper>{WELCOMING_AD}</DescriptionTextWrapper>
+      <LandscapeImage src={LandscapePhoto} alt="Landscape" />
     </NavyBackgroundPageWrapper>
   );
 }

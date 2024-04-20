@@ -58,3 +58,20 @@ export const DescriptionTextWrapper = styled.p`
   white-space: pre-line;
   padding: 30px 0px;
 `;
+
+export const LandscapeImage = styled.img`
+  width: 75%;
+  height: auto;
+  max-height: 300px;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+
+  &:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+  }
+`;
