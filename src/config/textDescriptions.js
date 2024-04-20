@@ -21,3 +21,6 @@ export const REVIEWS = [
     guestName: "Emily and John",
   },
 ];
+
+export const ABOUT_US =
+  "Welcome to The Hotel where hospitality meets excellence. With 15 years of experience, we're dedicated to providing unparalleled service and memorable experiences. From our elegantly designed rooms to our world-class amenities, we strive to exceed expectations and create unforgettable stays for our guests.";
