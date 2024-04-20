@@ -47,7 +47,7 @@ export const BookNowButton = styled(Button)`
 
   font-size: 15px;
   font-weight: bold;
-  color: black;
+  color: ${colors.black};
 `;
 
 export const DescriptionTextWrapper = styled.p`
