@@ -9,11 +9,11 @@ import {
   BookNowButton,
   DescriptionTextWrapper,
   LandscapeImage,
-} from "./HomeElements.js";
+} from "./WelcomeElements.js";
 import { WELCOMING_AD } from "../../config/textDescriptions.js";
 import LandscapePhoto from "../../assets/images/ResortPlaceholder.png";
 
-function Home() {
+function Welcome() {
   return (
     <NavyBackgroundPageWrapper>
       <TopBarWrapper>
@@ -30,4 +30,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Welcome;
