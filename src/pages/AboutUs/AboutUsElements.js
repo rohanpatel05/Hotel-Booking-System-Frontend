@@ -14,8 +14,8 @@ export const BodyWrapper = styled.div`
 `;
 
 export const AboutUsTextCard = styled(Card)`
-  background-color: ${colors.darkBeige};
-  border-color: ${colors.darkBeige};
+  background-color: ${colors.lightBeige};
+  border-color: ${colors.lightBeige};
 `;
 
 export const AboutUsText = styled(CardText)`
@@ -23,8 +23,8 @@ export const AboutUsText = styled(CardText)`
   font-size: 34px;
 `;
 export const ResortImageCard = styled(Card)`
-  background-color: ${colors.darkBeige};
-  border-color: ${colors.darkBeige};
+  background-color: ${colors.lightBeige};
+  border-color: ${colors.lightBeige};
 `;
 
 export const ResortImage = styled(CardImg)`

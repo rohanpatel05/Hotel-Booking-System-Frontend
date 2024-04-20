@@ -1,5 +1,5 @@
 import React from "react";
-import { DBeigeBackgroundPageWrapper } from "../../config/styles";
+import { LBeigeBackgroundPageWrapper } from "../../config/styles";
 import {
   Title,
   BodyWrapper,
@@ -15,7 +15,7 @@ import { Container, Row, Col } from "react-bootstrap";
 
 function AboutUs() {
   return (
-    <DBeigeBackgroundPageWrapper>
+    <LBeigeBackgroundPageWrapper>
       <Title>About Us</Title>
       <BodyWrapper>
         <Container fluid>
@@ -37,7 +37,7 @@ function AboutUs() {
           </Row>
         </Container>
       </BodyWrapper>
-    </DBeigeBackgroundPageWrapper>
+    </LBeigeBackgroundPageWrapper>
   );
 }
 
