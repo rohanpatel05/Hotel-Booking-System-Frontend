@@ -15,3 +15,8 @@ export const DBeigeBackgroundPageWrapper = styled.div`
   background-color: ${colors.darkBeige};
   min-height: 100vh;
 `;
+
+export const NavyBackgroundFooterWrapper = styled.div`
+  background-color: ${colors.navy};
+  min-height: 40vh;
+`;
