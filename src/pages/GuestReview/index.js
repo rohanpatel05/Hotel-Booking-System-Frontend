@@ -9,7 +9,7 @@ import {
   RevieFooter,
 } from "./GuestReviewElements.js";
 import { REVIEWS } from "../../config/textDescriptions";
-
+import { CardBody } from "react-bootstrap";
 function GuestReview() {
   return (
     <LBeigeBackgroundPageWrapper>
@@ -18,9 +18,11 @@ function GuestReview() {
         {REVIEWS &&
           REVIEWS.map((review) => (
             <ReviewCards>
-              <RevieHeader>“</RevieHeader>
-              <RevieBody>{review.review}</RevieBody>
-              <RevieFooter>{review.guestName}</RevieFooter>
+              <CardBody>
+                <RevieHeader>“</RevieHeader>
+                <RevieBody>{review.review}</RevieBody>
+                <RevieFooter>{review.guestName}</RevieFooter>
+              </CardBody>
             </ReviewCards>
           ))}
       </ReviewCardsWrapper>
