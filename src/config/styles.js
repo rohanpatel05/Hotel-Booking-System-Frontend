@@ -18,5 +18,5 @@ export const DBeigeBackgroundPageWrapper = styled.div`
 
 export const NavyBackgroundFooterWrapper = styled.div`
   background-color: ${colors.navy};
-  min-height: 40vh;
+  min-height: 50vh;
 `;
