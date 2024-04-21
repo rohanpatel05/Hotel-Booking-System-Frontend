@@ -5,6 +5,7 @@ const colors = {
   white: "#ffffff",
   black: "#000000",
   pale: "#E3E3C4",
+  blue: "#3498DB",
 };
 
 export default colors;
