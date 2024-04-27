@@ -9,7 +9,7 @@ export const roomsSlice = createSlice({
   initialState,
   reducers: {
     updateRooms: (state, action) => {
-      state.value += action.payload;
+      state.value = action.payload;
     },
     reset: (state) => {
       state.value = [];
