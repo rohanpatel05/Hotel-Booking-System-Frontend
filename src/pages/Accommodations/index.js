@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { DBeigeBackgroundPageWrapper } from "../../config/styles";
 import {
   Title,
@@ -18,24 +18,37 @@ import Spinner from "../../components/Spinner.js";
 import StyledErrorAlert from "../../components/Error.js";
 import RoomPhoto from "../../assets/images/RoomPlaceholder1.png";
 import { roomTypeMap } from "../../config/roomsMap.js";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateRooms } from "../../features/rooms/roomsSlice";
 
 function Accommodations() {
   const dispatch = useDispatch();
+  const rooms = useSelector((state) => state.rooms.value);
+
+  const [uniqueRooms, setUniqueRooms] = useState([]);
 
   const {
-    data: rooms,
+    data: roomsData,
     isError,
     error,
     isLoading,
+    isSuccess,
   } = useQuery({
     queryKey: [GET_ROOMS_QUERY_KEY],
     queryFn: fetchRooms,
-    onSuccess: (rooms) => {
-      dispatch(updateRooms(rooms));
-    },
   });
+
+  useEffect(() => {
+    const processRooms = async () => {
+      if (!isLoading && isSuccess) {
+        dispatch(updateRooms(roomsData));
+        const uniqueRooms = getUniqueRoomTypes(rooms);
+        setUniqueRooms(uniqueRooms);
+      }
+    };
+
+    processRooms();
+  }, [roomsData, isLoading, isSuccess, dispatch, rooms]);
 
   if (isLoading) return <Spinner />;
 
@@ -60,14 +73,12 @@ function Accommodations() {
     return uniqueRooms;
   };
 
-  const uniqueRooms = getUniqueRoomTypes(rooms);
-
   return (
     <DBeigeBackgroundPageWrapper>
       <Title>Accommodations</Title>
       <StyledContainer>
-        {uniqueRooms.map((room) => (
-          <StyledRow key={room.id}>
+        {uniqueRooms.map((room, index) => (
+          <StyledRow key={room.id || index}>
             <RoomCard>
               <RoomImage
                 className="room-image"
