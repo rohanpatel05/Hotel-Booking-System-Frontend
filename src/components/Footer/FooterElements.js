@@ -19,7 +19,7 @@ export const StyledHr = styled.hr`
 `;
 
 export const AlignedText = styled.div`
-  text-align: ${(props) => props.align};
+  text-align: ${(props) => props.$align || "left"};
   font-family: "Inter", sans-serif;
   font-size: 15px;
   color: ${colors.pale};
