@@ -18,25 +18,25 @@ function Footer() {
       <Container>
         <Row>
           <Col>
-            <AlignedText align="left">{COMPANY_ADDRESS}</AlignedText>
+            <AlignedText $align="left">{COMPANY_ADDRESS}</AlignedText>
           </Col>
           <Col>
-            <AlignedText align="center">{COMPANY_EMAIL}</AlignedText>
+            <AlignedText $align="center">{COMPANY_EMAIL}</AlignedText>
           </Col>
           <Col>
-            <AlignedText align="right">{COMPANY_PHONE_NUMBER}</AlignedText>
+            <AlignedText $align="right">{COMPANY_PHONE_NUMBER}</AlignedText>
           </Col>
         </Row>
         <StyledHr />
         <Row>
           <Col>
-            <AlignedText align="left">{COMPANY_FACEBOOK}</AlignedText>
+            <AlignedText $align="left">{COMPANY_FACEBOOK}</AlignedText>
           </Col>
           <Col>
-            <AlignedText align="center">{COMPANY_INSTAGRAM}</AlignedText>
+            <AlignedText $align="center">{COMPANY_INSTAGRAM}</AlignedText>
           </Col>
           <Col>
-            <AlignedText align="right">{COMPANY_POLICY}</AlignedText>
+            <AlignedText $align="right">{COMPANY_POLICY}</AlignedText>
           </Col>
         </Row>
         <StyledHr />
