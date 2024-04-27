@@ -12,12 +12,13 @@ import {
   RoomDescription,
 } from "./AccommodationsElements";
 import { useQuery } from "@tanstack/react-query";
-import { fetchRooms } from "../../services/roomService";
+import { fetchRooms } from "../../api/roomService.js";
 import { GET_ROOMS_QUERY_KEY } from "../../config/queryKeys";
 import Spinner from "../../components/Spinner.js";
 import StyledErrorAlert from "../../components/Error.js";
 import RoomPhoto from "../../assets/images/RoomPlaceholder1.png";
 import { roomTypeMap } from "../../config/roomsMap.js";
+
 function Accommodations() {
   const {
     data: rooms,
