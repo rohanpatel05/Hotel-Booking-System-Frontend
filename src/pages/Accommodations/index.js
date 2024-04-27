@@ -17,7 +17,7 @@ import { GET_ROOMS_QUERY_KEY } from "../../config/queryKeys";
 import Spinner from "../../components/Spinner.js";
 import StyledErrorAlert from "../../components/Error.js";
 import RoomPhoto from "../../assets/images/RoomPlaceholder1.png";
-
+import { roomTypeMap } from "../../config/roomsMap.js";
 function Accommodations() {
   const {
     data: rooms,
@@ -38,11 +38,27 @@ function Accommodations() {
       </StyledErrorAlert>
     );
 
+  const getUniqueRoomTypes = (rooms) => {
+    const uniqueRooms = [];
+    const seenTypes = new Set();
+
+    rooms.forEach((room) => {
+      if (!seenTypes.has(room.type)) {
+        seenTypes.add(room.type);
+        uniqueRooms.push(room);
+      }
+    });
+
+    return uniqueRooms;
+  };
+
+  const uniqueRooms = getUniqueRoomTypes(rooms);
+
   return (
     <DBeigeBackgroundPageWrapper>
       <Title>Accommodations</Title>
       <StyledContainer>
-        {rooms.map((room) => (
+        {uniqueRooms.map((room) => (
           <StyledRow key={room.id}>
             <RoomCard>
               <RoomImage
@@ -51,7 +67,9 @@ function Accommodations() {
                 alt={room.type}
               />
               <TextWrapper className="text-wrapper">
-                <RoomTitle className="room-title">{room.type}</RoomTitle>
+                <RoomTitle className="room-title">
+                  {roomTypeMap[room.type] || room.type}
+                </RoomTitle>
                 <RoomDescription className="room-description">
                   {room.description}
                 </RoomDescription>
