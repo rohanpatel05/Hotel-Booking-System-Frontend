@@ -20,8 +20,10 @@ import RoomPhoto from "../../assets/images/RoomPlaceholder1.png";
 import { roomTypeMap } from "../../config/roomsMap.js";
 import { useDispatch, useSelector } from "react-redux";
 import { updateRooms } from "../../features/rooms/roomsSlice";
+import { useNavigate } from "react-router-dom";
 
 function Accommodations() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const rooms = useSelector((state) => state.rooms.value);
 
@@ -73,13 +75,17 @@ function Accommodations() {
     return uniqueRooms;
   };
 
+  const handleRoomClick = (roomType) => {
+    navigate(`/room/${roomType}`);
+  };
+
   return (
     <DBeigeBackgroundPageWrapper id="accommodations-section">
       <Title>Accommodations</Title>
       <StyledContainer>
         {uniqueRooms.map((room, index) => (
           <StyledRow key={room.id || index}>
-            <RoomCard>
+            <RoomCard onClick={() => handleRoomClick(room.type)}>
               <RoomImage
                 className="room-image"
                 src={RoomPhoto}
