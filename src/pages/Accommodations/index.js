@@ -12,7 +12,7 @@ import {
   RoomDescription,
 } from "./AccommodationsElements";
 import { useQuery } from "@tanstack/react-query";
-import { fetchRooms } from "../../api/roomService.js";
+import { fetchRooms } from "../../services/roomService.js";
 import { GET_ROOMS_QUERY_KEY } from "../../config/queryKeys";
 import Spinner from "../../components/Spinner.js";
 import StyledErrorAlert from "../../components/Error.js";
