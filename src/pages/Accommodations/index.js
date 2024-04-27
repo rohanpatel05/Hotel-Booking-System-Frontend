@@ -74,7 +74,7 @@ function Accommodations() {
   };
 
   return (
-    <DBeigeBackgroundPageWrapper>
+    <DBeigeBackgroundPageWrapper id="accommodations-section">
       <Title>Accommodations</Title>
       <StyledContainer>
         {uniqueRooms.map((room, index) => (

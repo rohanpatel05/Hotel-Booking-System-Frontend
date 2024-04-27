@@ -14,13 +14,24 @@ import { WELCOMING_AD } from "../../config/textDescriptions.js";
 import LandscapePhoto from "../../assets/images/ResortPlaceholder.png";
 
 function Welcome() {
+  const handleAccommodationsClick = () => {
+    const accommodationsElement = document.getElementById(
+      "accommodations-section"
+    );
+    if (accommodationsElement) {
+      accommodationsElement.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <NavyBackgroundPageWrapper>
       <TopBarWrapper>
         <TopBarFiller></TopBarFiller>
         <Brand>The Hotel</Brand>
         <ButtonWraper>
-          <AccommodationsButton>Accommodations</AccommodationsButton>
+          <AccommodationsButton onClick={handleAccommodationsClick}>
+            Accommodations
+          </AccommodationsButton>
           <BookNowButton>Book Now</BookNowButton>
         </ButtonWraper>
       </TopBarWrapper>
