@@ -18,8 +18,12 @@ import Spinner from "../../components/Spinner.js";
 import StyledErrorAlert from "../../components/Error.js";
 import RoomPhoto from "../../assets/images/RoomPlaceholder1.png";
 import { roomTypeMap } from "../../config/roomsMap.js";
+import { useDispatch } from "react-redux";
+import { updateRooms } from "../../features/rooms/roomsSlice";
 
 function Accommodations() {
+  const dispatch = useDispatch();
+
   const {
     data: rooms,
     isError,
@@ -28,6 +32,9 @@ function Accommodations() {
   } = useQuery({
     queryKey: [GET_ROOMS_QUERY_KEY],
     queryFn: fetchRooms,
+    onSuccess: (rooms) => {
+      dispatch(updateRooms(rooms));
+    },
   });
 
   if (isLoading) return <Spinner />;
