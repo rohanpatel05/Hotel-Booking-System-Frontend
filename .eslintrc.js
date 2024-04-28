@@ -13,11 +13,12 @@ module.exports = {
       jsx: true,
     },
   },
-  plugins: ["@tanstack/query"],
+  plugins: ["@tanstack/query", "jest"],
   extends: [
     "plugin:@tanstack/eslint-plugin-query/recommended",
     "eslint:recommended",
     "plugin:react/recommended",
+    "plugin:jest/recommended",
   ],
   settings: {
     react: {
