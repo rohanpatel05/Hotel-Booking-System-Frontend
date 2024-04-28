@@ -8,10 +8,9 @@ import {
   ResortImageCard,
   ResortImage,
 } from "./AboutUsElements";
-import { CardBody } from "react-bootstrap";
 import { ABOUT_US } from "../../config/textDescriptions";
 import ResortPhoto from "../../assets/images/ResortSquaredPlaceholder.png";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, CardBody } from "react-bootstrap";
 
 function AboutUs() {
   return (
@@ -30,7 +29,7 @@ function AboutUs() {
             <Col md={6}>
               <ResortImageCard>
                 <CardBody>
-                  <ResortImage src={ResortPhoto} />
+                  <ResortImage src={ResortPhoto} alt="Resort image." />
                 </CardBody>
               </ResortImageCard>
             </Col>
