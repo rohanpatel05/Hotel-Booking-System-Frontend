@@ -24,7 +24,9 @@ const Overlay = styled.div`
   z-index: 1050;
 `;
 
-const Spinner = styled.div`
+const Spinner = styled.div.attrs({
+  className: "loading-spinner",
+})`
   border: 5px solid rgba(255, 255, 255, 0.3);
   border-top: 5px solid ${colors.blue};
   border-radius: 50%;
@@ -36,7 +38,7 @@ const Spinner = styled.div`
 function OverlayedSpinner() {
   return (
     <Overlay>
-      <Spinner />
+      <Spinner data-testid="loading-spinner" />
     </Overlay>
   );
 }
