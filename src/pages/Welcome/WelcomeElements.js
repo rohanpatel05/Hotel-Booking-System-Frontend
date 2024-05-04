@@ -10,8 +10,7 @@ export const TopBarWrapper = styled.div`
 `;
 
 export const TopBarFiller = styled.div`
-  width: 225px;
-  height: 55px;
+  width: 271px;
 `;
 
 export const Brand = styled.h1`
