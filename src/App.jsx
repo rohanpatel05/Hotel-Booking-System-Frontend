@@ -3,9 +3,9 @@ import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-import Home from "./pages/Home.js";
-import Room from "./pages/Room/index.js";
-import NotFound from "./pages/NotFound/index.js";
+import Home from "./pages/Home.jsx";
+import Room from "./pages/Room/index.jsx";
+import NotFound from "./pages/NotFound/index.jsx";
 
 const queryClient = new QueryClient();
 

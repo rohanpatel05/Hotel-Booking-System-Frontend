@@ -1,8 +1,8 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import NotFound from "../NotFound/index.js";
-import { roomTypeMap } from "../../config/roomsMap";
+import NotFound from "../NotFound/index.jsx";
+import { roomTypeMap } from "../../config/roomsMap.js";
 import { DBeigeBackgroundPageWrapper } from "../../config/styles.js";
 import {
   Title,

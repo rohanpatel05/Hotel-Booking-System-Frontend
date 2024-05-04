@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { DBeigeBackgroundPageWrapper } from "../../config/styles";
+import { DBeigeBackgroundPageWrapper } from "../../config/styles.js";
 import {
   Title,
   StyledContainer,
@@ -10,16 +10,16 @@ import {
   TextWrapper,
   RoomTitle,
   RoomDescription,
-} from "./AccommodationsElements";
+} from "./AccommodationsElements.js";
 import { useQuery } from "@tanstack/react-query";
 import { fetchRooms } from "../../services/roomService.js";
-import { GET_ROOMS_QUERY_KEY } from "../../config/queryKeys";
-import Spinner from "../../components/Spinner.js";
+import { GET_ROOMS_QUERY_KEY } from "../../config/queryKeys.js";
+import Spinner from "../../components/Spinner.jsx";
 import StyledErrorAlert from "../../components/Error.js";
 import RoomPhoto from "../../assets/images/RoomPlaceholder1.png";
 import { roomTypeMap } from "../../config/roomsMap.js";
 import { useDispatch, useSelector } from "react-redux";
-import { updateRooms } from "../../features/rooms/roomsSlice";
+import { updateRooms } from "../../features/rooms/roomsSlice.js";
 import { useNavigate } from "react-router-dom";
 
 function Accommodations() {

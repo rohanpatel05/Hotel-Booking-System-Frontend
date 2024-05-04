@@ -7,7 +7,7 @@ import {
   RevieBody,
   RevieFooter,
 } from "./GuestReviewElements.js";
-import { REVIEWS } from "../../config/textDescriptions";
+import { REVIEWS } from "../../config/textDescriptions.js";
 import { CardBody } from "react-bootstrap";
 import { Container, Row, Col } from "react-bootstrap";
 
