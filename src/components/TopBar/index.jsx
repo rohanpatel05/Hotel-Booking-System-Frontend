@@ -15,7 +15,7 @@ function TopBar() {
                 {!isLoggedIn ? (                
                     <StyledNavLink>Sign in</StyledNavLink>
                 ) : (
-                    <StyledNavDropdown     title={<text style={{color: 'white'}}>{"User's name"}</text>}>
+                    <StyledNavDropdown title={<text style={{color: 'white'}}>{"User's name"}</text>}>
                         <NavDropdown.Item >Account Info</NavDropdown.Item>
                         <NavDropdown.Item >Reservations</NavDropdown.Item>
                         <NavDropdown.Item >Logout</NavDropdown.Item>
