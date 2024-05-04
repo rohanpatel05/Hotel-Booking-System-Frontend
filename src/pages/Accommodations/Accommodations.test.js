@@ -3,7 +3,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import { useQuery } from "@tanstack/react-query";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
-import Accommodations from "./index.js";
+import Accommodations from "./index.jsx";
 import { store } from "../../app/store"; // Assuming the path to your Redux store
 
 jest.mock("@tanstack/react-query", () => ({

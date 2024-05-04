@@ -1,7 +1,7 @@
 import React from "react";
 import { render, fireEvent, screen } from "@testing-library/react";
 // import userEvent from "@testing-library/user-event";
-import Welcome from "./index.js";
+import Welcome from "./index.jsx";
 import { WELCOMING_AD } from "../../config/textDescriptions";
 
 jest.mock("react-router-dom", () => ({

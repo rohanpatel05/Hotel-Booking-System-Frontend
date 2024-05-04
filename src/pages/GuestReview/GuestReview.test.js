@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import GuestReview from "./index.js";
+import GuestReview from "./index.jsx";
 import { REVIEWS } from "../../config/textDescriptions";
 
 describe("GuestReview Component", () => {

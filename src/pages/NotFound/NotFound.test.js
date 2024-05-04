@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import NotFound from "./index.js";
+import NotFound from "./index.jsx";
 
 describe("NotFound Component", () => {
   beforeEach(() => {

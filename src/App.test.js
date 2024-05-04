@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-import App from "./App";
+import App from "./App.jsx";
 
 jest.mock(
   "./pages/Home",

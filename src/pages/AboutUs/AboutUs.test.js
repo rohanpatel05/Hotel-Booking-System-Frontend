@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import AboutUs from "./index.js";
+import AboutUs from "./index.jsx";
 import { ABOUT_US } from "../../config/textDescriptions";
 
 describe("AboutUs Component", () => {

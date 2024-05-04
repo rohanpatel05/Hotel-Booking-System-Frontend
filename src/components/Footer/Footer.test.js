@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import Footer from "./index.js";
+import Footer from "./index.jsx";
 import {
   COMPANY_ADDRESS,
   COMPANY_EMAIL,

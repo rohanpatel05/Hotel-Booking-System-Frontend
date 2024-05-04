@@ -4,7 +4,7 @@ import { MemoryRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import Room from "./index.js";
+import Room from "./index.jsx";
 import configureStore from "redux-mock-store";
 
 jest.mock("react-router-dom", () => ({

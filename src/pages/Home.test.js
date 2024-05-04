@@ -1,36 +1,36 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import Home from "./Home";
+import Home from "./Home.jsx";
 
-jest.mock("./Welcome/index.js", () => {
+jest.mock("./Welcome/index.jsx", () => {
   return {
     __esModule: true,
     default: () => <div>WelcomeSection</div>,
   };
 });
 
-jest.mock("./GuestReview/index.js", () => {
+jest.mock("./GuestReview/index.jsx", () => {
   return {
     __esModule: true,
     default: () => <div>GuestReviewSection</div>,
   };
 });
 
-jest.mock("./Accommodations/index.js", () => {
+jest.mock("./Accommodations/index.jsx", () => {
   return {
     __esModule: true,
     default: () => <div>AccommodationsSection</div>,
   };
 });
 
-jest.mock("./AboutUs/index.js", () => {
+jest.mock("./AboutUs/index.jsx", () => {
   return {
     __esModule: true,
     default: () => <div>AboutUsSection</div>,
   };
 });
 
-jest.mock("../components/Footer/index.js", () => {
+jest.mock("../components/Footer/index.jsx", () => {
   return {
     __esModule: true,
     default: () => <div>FooterSection</div>,
