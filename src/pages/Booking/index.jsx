@@ -1,8 +1,10 @@
 import React from 'react'
+import "./index.css";
+import TopBar from "../../components/TopBar/index.jsx"
 
 function Booking() {
   return (
-    <div>index</div>
+    <TopBar/>
   )
 }
 
