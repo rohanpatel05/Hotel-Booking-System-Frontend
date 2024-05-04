@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { NavyBackgroundPageWrapper } from "../../config/styles.js";
 import {
   TopBarWrapper,
@@ -14,6 +15,8 @@ import { WELCOMING_AD } from "../../config/textDescriptions.js";
 import LandscapePhoto from "../../assets/images/ResortPlaceholder.png";
 
 function Welcome() {
+  const navigate = useNavigate();
+  
   const handleAccommodationsClick = () => {
     const accommodationsElement = document.getElementById(
       "accommodations-section"
@@ -22,6 +25,10 @@ function Welcome() {
       accommodationsElement.scrollIntoView({ behavior: "smooth" });
     }
   };
+
+  const handleBookNowClick = () => {
+    navigate("/booking");
+  }
 
   return (
     <NavyBackgroundPageWrapper>
@@ -32,7 +39,7 @@ function Welcome() {
           <AccommodationsButton onClick={handleAccommodationsClick}>
             Accommodations
           </AccommodationsButton>
-          <BookNowButton>Book Now</BookNowButton>
+          <BookNowButton onClick={handleBookNowClick}>Book Now</BookNowButton>
         </ButtonWraper>
       </TopBarWrapper>
       <DescriptionTextWrapper>{WELCOMING_AD}</DescriptionTextWrapper>
