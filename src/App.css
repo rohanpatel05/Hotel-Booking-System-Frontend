@@ -4,6 +4,10 @@
     padding: 0;
 }
 
+body {
+    background: #395165;
+}
+
 @font-face {
     font-family: 'Italianno';
     src: url('./assets/fonts/Italianno-Regular.ttf') format('truetype');
