@@ -7,15 +7,15 @@ export const Container = styled.div`
 `;
 
 export const Heading = styled.h1`
-  color: ${colors.darkGrey};
+  color: ${colors.softRed};
 `;
 
 export const Message = styled.p`
-  color: ${colors.mediumGrey};
+  color: ${colors.lightBeige};
 `;
 
 export const Link = styled.a`
-  color: ${colors.vibrantBlue};
+  color: ${colors.pale};
   text-decoration: none;
 
   &:hover {
