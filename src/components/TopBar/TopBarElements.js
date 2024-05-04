@@ -29,8 +29,7 @@ export const StyledNavLink = styled(NavLink)`
 `;
 
 export const StyledNavDropdown = styled(NavDropdown)`
-  font-family: KiwiMaruRegular;
+  font-family: KiwiMaruMedium;
   font-size: 22px;
-  font-weight: bold;
   color: white;
 `;
