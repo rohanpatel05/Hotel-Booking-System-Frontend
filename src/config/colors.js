@@ -9,6 +9,9 @@ const colors = {
   lightRed: "#f8d7da",
   darkRed: "#721c24",
   softRed: "#f5c6cb",
+  lightNavy: "#70818E",
+  maroon: "#B3514B",
+  mediumGrey: "#BCBCBC",
 };
 
 export default colors;
