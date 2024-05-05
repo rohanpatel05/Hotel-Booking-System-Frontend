@@ -1,10 +1,18 @@
-/* eslint-disable no-unused-vars */
 import React, {useState} from 'react'
 import { StyledNavBrand, StyledNavLink, StyledNavDropdown } from './TopBarElements';
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 function TopBar() {
-    const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const navigate = useNavigate();
+  
+  // eslint-disable-next-line no-unused-vars
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const handleSignInClick = () => {
+    navigate("/signin");
+  }
+
   return (
     <Navbar sticky="top" >
       <Container>
@@ -13,7 +21,7 @@ function TopBar() {
         <Navbar.Collapse className="justify-content-end">
             <Nav>
                 {!isLoggedIn ? (                
-                    <StyledNavLink>Sign in</StyledNavLink>
+                    <StyledNavLink onClick={handleSignInClick}>Sign in</StyledNavLink>
                 ) : (
                     <StyledNavDropdown title={<text style={{color: 'white'}}>{"User's name"}</text>}>
                         <NavDropdown.Item >Account Info</NavDropdown.Item>

@@ -12,8 +12,11 @@ import {
   NonClickableText,
 } from "./SignUpElements";
 import AuthTopBar from "../../components/AuthTopBar";
+import { useNavigate } from "react-router-dom";
 
 function SignUp() {
+  const navigate = useNavigate();
+  
   const [isValid, setIsValid] = useState(true);
   const [formData, setFormData] = useState({
     name: "",
@@ -34,6 +37,10 @@ function SignUp() {
       [name]: value,
     }));
   };
+
+  const handleSignInClick = () => {
+    navigate("/signin")
+  }
 
   useEffect(() => {
     setIsValid(
@@ -65,7 +72,7 @@ function SignUp() {
           <InputLable>
             Email:
             <Input
-              type="email"
+              type="text"
               name="email"
               value={formData.email}
               onChange={handleChange}
@@ -92,7 +99,7 @@ function SignUp() {
 
           <TextWrapper>
             <NonClickableText>Already have an account? </NonClickableText>
-            <ClickableText>Sign In</ClickableText>
+            <ClickableText onClick={handleSignInClick} >Sign In</ClickableText>
           </TextWrapper>
 
           <Button type="submit" disabled={!isValid}>

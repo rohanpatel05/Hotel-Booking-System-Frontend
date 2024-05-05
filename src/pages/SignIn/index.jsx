@@ -12,8 +12,11 @@ import {
   NonClickableText,
 } from "./SignInElements.js";
 import AuthTopBar from "../../components/AuthTopBar";
+import { useNavigate } from "react-router-dom";
 
 function SignIn() {
+    const navigate = useNavigate();
+
     const [isValid, setIsValid] = useState(true);
     const [formData, setFormData] = useState({
         email: "",
@@ -32,6 +35,10 @@ function SignIn() {
         [name]: value,
         }));
     };
+
+    const handleSignUpClick = () => {
+        navigate("/signup");
+    }
 
     useEffect(() => {
         setIsValid(
@@ -70,7 +77,7 @@ function SignIn() {
 
                         <TextWrapper>
                             <NonClickableText>Need an account? </NonClickableText>
-                            <ClickableText>Sign Up</ClickableText>
+                            <ClickableText onClick={handleSignUpClick} >Sign Up</ClickableText>
                         </TextWrapper>
 
                         <Button type="submit" disabled={!isValid}>
