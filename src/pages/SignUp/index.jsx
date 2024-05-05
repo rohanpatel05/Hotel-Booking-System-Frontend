@@ -11,6 +11,7 @@ import {
   ClickableText,
   NonClickableText,
 } from "./SignUpElements";
+import AuthTopBar from "../../components/AuthTopBar";
 
 function SignUp() {
   const [isValid, setIsValid] = useState(true);
@@ -44,6 +45,9 @@ function SignUp() {
   }, [formData]);
 
   return (
+    <>
+    <AuthTopBar/>
+    
     <FormCard>
       <FormWrapper>
         <Title>Sign Up</Title>
@@ -97,6 +101,7 @@ function SignUp() {
         </Form>
       </FormWrapper>
     </FormCard>
+    </>
   );
 }
 
