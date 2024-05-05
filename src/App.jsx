@@ -2,12 +2,7 @@ import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
-import Home from "./pages/Home.jsx";
-import Room from "./pages/Room/index.jsx";
-import Booking from "./pages/Booking/index.jsx";
-import NotFound from "./pages/NotFound/index.jsx";
-import SignUp from "./pages/SignUp/index.js";
+import {Home, Room, Booking, SignUp, NotFound} from "./pages"
 
 const queryClient = new QueryClient();
 
