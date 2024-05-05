@@ -7,6 +7,7 @@ import Home from "./pages/Home.jsx";
 import Room from "./pages/Room/index.jsx";
 import Booking from "./pages/Booking/index.jsx";
 import NotFound from "./pages/NotFound/index.jsx";
+import SignUp from "./pages/SignUp/index.js";
 
 const queryClient = new QueryClient();
 
@@ -19,6 +20,7 @@ function App() {
             <Route exact path="/" element={<Home />} />
             <Route exact path="/room/:roomType" element={<Room />} />
             <Route exact path="/booking" element={<Booking />} />
+            <Route exact path="/signup" element={<SignUp />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Router>
