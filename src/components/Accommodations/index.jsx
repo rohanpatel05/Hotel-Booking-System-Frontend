@@ -14,8 +14,7 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { fetchRooms } from "../../services/roomService.js";
 import { GET_ROOMS_QUERY_KEY } from "../../config/queryKeys.js";
-import Spinner from "../../components/Spinner.jsx";
-import StyledErrorAlert from "../../components/Error.js";
+import {OverlayedSpinner as Spinner, StyledErrorAlert} from "../../components/index.js";
 import RoomPhoto from "../../assets/images/RoomPlaceholder1.png";
 import { roomTypeMap } from "../../config/roomsMap.js";
 import { useDispatch, useSelector } from "react-redux";
