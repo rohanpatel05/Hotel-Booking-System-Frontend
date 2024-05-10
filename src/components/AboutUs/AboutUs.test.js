@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import AboutUs from "./index.jsx";
-import { ABOUT_US } from "../../config/textDescriptions";
+import { ABOUT_US } from "../../config/textDescriptions.js";
 
 describe("AboutUs Component", () => {
   it('renders the title "About Us"', () => {

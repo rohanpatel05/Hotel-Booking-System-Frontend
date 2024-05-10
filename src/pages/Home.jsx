@@ -1,8 +1,8 @@
 import React from "react";
-import WelcomeSectiom from "./Welcome/index.jsx";
-import GuestReviewSectiom from "./GuestReview/index.jsx";
-import AccommodationsSection from "./Accommodations/index.jsx";
-import AboutUsSection from "./AboutUs/index.jsx";
+import WelcomeSectiom from "../components/Welcome/index.jsx";
+import GuestReviewSectiom from "../components/GuestReview/index.jsx";
+import AccommodationsSection from "../components/Accommodations/index.jsx";
+import AboutUsSection from "../components/AboutUs/index.jsx";
 import FooterSection from "../components/Footer/index.jsx";
 
 function Home() {
