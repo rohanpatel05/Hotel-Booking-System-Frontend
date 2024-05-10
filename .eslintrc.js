@@ -28,7 +28,5 @@ module.exports = {
   rules: {
     "@tanstack/query/exhaustive-deps": "error",
     "@tanstack/query/stable-query-client": "error",
-    // "@tanstack/query/no-deprecated-options": "error",
-    // "@tanstack/query/prefer-query-object-syntax": "error",
   },
 };
