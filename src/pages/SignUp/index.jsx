@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useRef } from "react";
 import {
   FormCard,
@@ -20,6 +19,10 @@ import { useNavigate } from "react-router-dom";
 import { nameRegex, emailRegex, passwordRegex } from "../../config/regex";
 import { faCheck, faTimes, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useMutation } from '@tanstack/react-query';
+import { signUp } from "../../services/userService.js";
+import { POST_SIGNUP_QUERY_KEY } from "../../config/queryKeys.js";
+import {OverlayedSpinner as Spinner} from "../../components/index.js";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -44,14 +47,35 @@ function SignUp() {
   const [confirmPasswordFocus, setConfirmPasswordFocus] = useState (false);
 
   const [canSubmit, setCanSubmit] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("Error!");
+
+  const { mutate, isLoading, isError, error } = useMutation({
+    mutationKey: [POST_SIGNUP_QUERY_KEY],
+    mutationFn: signUp,
+    onError: (error) => {
+      if (error.response) {
+        const responseError = error.response.data.message || "Unknown error occurred.";
+        error.message = responseError;
+      } else {
+        error.message = "Network error occurred!";
+      }
+      errorRef.current.focus();
+    }
+  });
 
   const handleSignInClick = () => {
-    navigate("/signin")
+    navigate("/signin");
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (canSubmit) {
+      const signUpBody = {
+        name,
+        email,
+        password,
+      };
+      mutate(signUpBody);
+    }
   };
 
   useEffect(() => {
@@ -79,13 +103,15 @@ function SignUp() {
       confirmPassword && isConfirmPasswordValid);
   }, [name, isNameValid, email, isEmailValid, password, isPasswordValid, confirmPassword, isConfirmPasswordValid]);
 
+  if (isLoading) return <Spinner />;
+
   return (
     <>
     <AuthTopBar/>
     
     <FormCard>
       <FormWrapper>
-        {ErrorMessage &&  <ErrorMessage ref={errorRef} isVisible={!!errorMessage} >{errorMessage}</ErrorMessage>}
+        {isError && <ErrorMessage ref={errorRef} >{error.message}</ErrorMessage>}
 
         <Title>Sign Up</Title>
 
