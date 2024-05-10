@@ -15,7 +15,7 @@ import {
   ValidationIcon,
   InstructionText,
 } from "./SignUpElements";
-import AuthTopBar from "../../components/AuthTopBar";
+import { AuthTopBar } from "../../components/index.js";
 import { useNavigate } from "react-router-dom";
 import { nameRegex, emailRegex, passwordRegex } from "../../config/regex";
 import { faCheck, faTimes, faInfoCircle } from '@fortawesome/free-solid-svg-icons';

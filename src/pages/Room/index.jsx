@@ -1,7 +1,8 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import NotFound from "../NotFound/index.jsx";
+import { Container, Row, Col, CardBody } from "react-bootstrap";
+import { NotFound } from "../index.js";
 import { roomTypeMap } from "../../config/roomsMap.js";
 import { DBeigeBackgroundPageWrapper } from "../../config/styles.js";
 import {
@@ -12,7 +13,6 @@ import {
   InfoText,
   RoomImage,
 } from "./RoomElements.js";
-import { Container, Row, Col, CardBody } from "react-bootstrap";
 import RoomPhoto from "../../assets/images/RoomPlaceholder1.png";
 
 const getRoomByType = (state, roomType) => {

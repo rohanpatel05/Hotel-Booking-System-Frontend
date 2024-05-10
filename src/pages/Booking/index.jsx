@@ -1,5 +1,5 @@
 import React from 'react'
-import TopBar from "../../components/TopBar/index.jsx"
+import { TopBar } from '../../components/index.js'
 
 function Booking() {
   return (
