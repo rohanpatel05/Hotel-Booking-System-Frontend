@@ -43,7 +43,7 @@ function SignUp() {
   const [isConfirmPasswordValid, setIsConfirmPasswordValid] = useState(false);
   const [confirmPasswordFocus, setConfirmPasswordFocus] = useState (false);
 
-  const [canSubmit, setCanSubmit] = useState(true);
+  const [canSubmit, setCanSubmit] = useState(false);
   const [errorMessage, setErrorMessage] = useState("Error!");
 
   const handleSignInClick = () => {
@@ -141,7 +141,7 @@ function SignUp() {
                 Only lowercase letters, numbers, dots (.), underscores (_), and hyphens (-) are allowed before the @ symbol.
               </InstructionText> : 
               <></>            
-              }
+            }
           </InputLable>
 
           <InputLable htmlFor="password">
@@ -171,7 +171,7 @@ function SignUp() {
                 - At least one special character: !, @, #, $, %, ^, &, *, (,)
               </InstructionText> : 
               <></>            
-              }
+            }
           </InputLable>
 
           <InputLable htmlFor="confirmPassword">
