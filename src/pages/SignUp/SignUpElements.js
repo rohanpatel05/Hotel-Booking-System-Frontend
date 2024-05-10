@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import colors from "../../config/colors.js";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export const FormCard = styled.div`
+export const FormCard = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -59,12 +60,37 @@ export const TextWrapper = styled.div`
   margin-top: 20px;
 `;
 
-export const NonClickableText = styled.text`
+export const NonClickableText = styled.span`
   color: ${colors.darkBeige};
 `;
 
-export const ClickableText = styled.text`
+export const ClickableText = styled.span`
   color: ${colors.pale};
   text-decoration: underline;
   cursor: pointer;
+`;
+
+export const ErrorMessage = styled.p`
+  color: ${colors.maroon};
+  font-size: 20px;
+  aria-live="assertive"
+  display: ${(props) => (props.isVisible ? "block" : "none")};
+`;
+
+export const ValidationIcon = styled(FontAwesomeIcon)`
+  margin-left: 0.25rem;
+  color: ${(props) => (props.isValid ? "limegreen" : "red")};
+  display: ${(props) => (props.show ? "inline" : "none")};
+`;
+
+export const InstructionText = styled.p`
+  font-size: 0.75rem;
+  border-radius: 0.5rem;
+  background-color: ${colors.black};
+  color: ${colors.white};
+  padding: 0.25rem;
+  position: relative;
+  bottom: -10px;
+  visibility: ${(props) => (props.isVisible ? "visible" : "hidden")};
+  margin-right: 0.25rem;
 `;
