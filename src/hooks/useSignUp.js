@@ -2,8 +2,12 @@ import { useMutation } from "@tanstack/react-query";
 import useAuth from "./useAuth.js";
 import { POST_SIGNUP_QUERY_KEY } from "../config/queryKeys.js";
 import { signUpQuery } from "../services/userService";
+import { useNavigate } from "react-router-dom";
 
 export const useSignUp = () => {
+  const navigate = useNavigate();
+  const from = "/booking";
+
   const { signUp } = useAuth();
 
   const { mutate, isLoading, isError, error } = useMutation({
@@ -17,6 +21,8 @@ export const useSignUp = () => {
         refreshTokenExpiration: response.refreshTokenExpiration,
         user: response.user,
       });
+
+      navigate(from, { replace: true });
     },
     onError: (error) => {
       if (error.response) {
