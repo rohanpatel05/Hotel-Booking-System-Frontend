@@ -1,33 +1,31 @@
 import React, { useState, useEffect, useRef } from "react";
 import {
-  FormCard,
-  FormWrapper,
-  Title,
-  Form,
-  InputLable,
-  Input,
-  Button,
-  TextWrapper,
-  ClickableText,
-  NonClickableText,
-  ErrorMessage,
-  ValidationIcon,
-  InstructionText
+    FormCard,
+    FormWrapper,
+    Title,
+    Form,
+    InputLable,
+    Input,
+    Button,
+    TextWrapper,
+    ClickableText,
+    NonClickableText,
+    ErrorMessage,
+    ValidationIcon,
+    InstructionText
 } from "./SignInElements.js";
 import { AuthTopBar } from "../../components/index.js";
 import { useNavigate } from "react-router-dom";
 import { emailRegex, passwordRegex } from "../../config/regex";
 import { faCheck, faTimes, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useMutation } from '@tanstack/react-query';
-import { signIn } from "../../services/userService.js";
-import { POST_SIGNIN_QUERY_KEY } from "../../config/queryKeys.js";
 import { OverlayedSpinner as Spinner } from "../../components/index.js";
+import { useSignIn } from "../../hooks/useSignIn.js";
+
 function SignIn() {
     const navigate = useNavigate();
 
     const userInputRef = useRef();
-    const errorRef = useRef();
 
     const [email, setEmail] = useState("");
     const [isEmailValid, setIsEmailValid] = useState(false);
@@ -39,34 +37,23 @@ function SignIn() {
 
     const [canSubmit, setCanSubmit] = useState(false);
 
-    const { mutate, isLoading, isError, error } = useMutation({
-        mutationKey: [POST_SIGNIN_QUERY_KEY],
-        mutationFn: signIn,
-        onError: (error) => {
-            if (error.response) {
-                const responseError = error.response.data.message || "Unknown error occurred.";
-                error.message = responseError;
-            } else {
-                error.message = "Network error occurred!";
-            }
-            errorRef.current.focus();
-        }
-    });
-
-    const handleSignUpClick = () => {
-        navigate("/signup");
-    }
+    const { mutate: signIn, isLoading, isError, error } = useSignIn();
 
     const handleSubmit = (event) => {
         event.preventDefault();
+
         if (canSubmit) {
             const signInBody = {
                 email,
                 password,
             };
-            mutate(signInBody);
+            signIn(signInBody);
         }
     };
+
+    const handleSignUpClick = () => {
+        navigate("/signup");
+    }
 
     useEffect(() => {
         userInputRef.current.focus();
@@ -83,7 +70,8 @@ function SignIn() {
     useEffect(() => {
         setCanSubmit(
             email && isEmailValid && 
-            password && isPasswordValid);
+            password && isPasswordValid
+        );
     }, [email, isEmailValid, password, isPasswordValid]);
 
     if (isLoading) return <Spinner />;
@@ -94,7 +82,7 @@ function SignIn() {
             
             <FormCard>
                 <FormWrapper>
-                    {isError && <ErrorMessage ref={errorRef} >{error.message}</ErrorMessage>}
+                    {isError && <ErrorMessage>{error.message}</ErrorMessage>}
 
                     <Title>Sign In</Title>
 
@@ -105,8 +93,9 @@ function SignIn() {
                             <ValidationIcon icon={faTimes} isValid={false} show={!isEmailValid && email} />
                             <Input
                             type="text"
-                            name="email"
+                            id="email"
                             ref={userInputRef}
+                            autoComplete="off"
                             autoCapitalize="off"
                             autoCorrect="off"
                             value={email}
@@ -132,7 +121,7 @@ function SignIn() {
                             <ValidationIcon icon={faTimes} isValid={false} show={!isPasswordValid && password} />
                             <Input
                             type="password"
-                            name="password"
+                            id="password"
                             autoComplete="off"
                             autoCorrect="off"
                             autoCapitalize="off"
