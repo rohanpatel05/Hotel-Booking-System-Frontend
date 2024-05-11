@@ -12,7 +12,9 @@ export const useSignUp = () => {
     onSuccess: (response) => {
       signUp({
         accessToken: response.accessToken,
+        accessTokenExpiration: response.accessTokenExpiration,
         refreshToken: response.refreshToken,
+        refreshTokenExpiration: response.refreshTokenExpiration,
         user: response.user,
       });
     },
