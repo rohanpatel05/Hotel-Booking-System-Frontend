@@ -16,9 +16,11 @@ const authReducer = (state, action) => {
       return {
         ...state,
         accessToken: action.payload.accessToken,
-        accessTokenExpiration: action.payload.accessTokenExpiration,
+        accessTokenExpiration:
+          Date.now() + action.payload.accessTokenExpiration * 1000,
         refreshToken: action.payload.refreshToken,
-        refreshTokenExpiration: action.payload.refreshTokenExpiration,
+        refreshTokenExpiration:
+          Date.now() + action.payload.refreshTokenExpiration * 1000,
         user: action.payload.user,
       };
     case "SIGN_OUT":
@@ -34,7 +36,8 @@ const authReducer = (state, action) => {
       return {
         ...state,
         accessToken: action.payload.accessToken,
-        accessTokenExpiration: action.payload.accessTokenExpiration,
+        accessTokenExpiration:
+          Date.now() + action.payload.accessTokenExpiration * 1000,
       };
     default:
       return state;
