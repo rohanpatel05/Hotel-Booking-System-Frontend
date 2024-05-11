@@ -19,16 +19,13 @@ import { useNavigate } from "react-router-dom";
 import { nameRegex, emailRegex, passwordRegex } from "../../config/regex";
 import { faCheck, faTimes, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useMutation } from '@tanstack/react-query';
-import { signUp } from "../../services/userService.js";
-import { POST_SIGNUP_QUERY_KEY } from "../../config/queryKeys.js";
 import {OverlayedSpinner as Spinner} from "../../components/index.js";
+import { useSignUp } from "../../hooks/useSignUp.js";
 
 function SignUp() {
   const navigate = useNavigate();
 
   const userInputRef = useRef();
-  const errorRef = useRef();
 
   const [name, setName] = useState("");
   const [isNameValid, setIsNameValid] = useState(false);
@@ -48,35 +45,24 @@ function SignUp() {
 
   const [canSubmit, setCanSubmit] = useState(false);
 
-  const { mutate, isLoading, isError, error } = useMutation({
-    mutationKey: [POST_SIGNUP_QUERY_KEY],
-    mutationFn: signUp,
-    onError: (error) => {
-      if (error.response) {
-        const responseError = error.response.data.message || "Unknown error occurred.";
-        error.message = responseError;
-      } else {
-        error.message = "Network error occurred!";
-      }
-      errorRef.current.focus();
-    }
-  });
-
-  const handleSignInClick = () => {
-    navigate("/signin");
-  }
+  const {mutate: signUp, isLoading, isError, error} = useSignUp();
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
     if (canSubmit) {
       const signUpBody = {
         name,
         email,
         password,
       };
-      mutate(signUpBody);
+      signUp(signUpBody);
     }
   };
+
+  const handleSignInClick = () => {
+    navigate("/signin");
+  }
 
   useEffect(() => {
     userInputRef.current.focus();
@@ -100,7 +86,8 @@ function SignUp() {
       name && isNameValid && 
       email && isEmailValid && 
       password && isPasswordValid && 
-      confirmPassword && isConfirmPasswordValid);
+      confirmPassword && isConfirmPasswordValid
+    );
   }, [name, isNameValid, email, isEmailValid, password, isPasswordValid, confirmPassword, isConfirmPasswordValid]);
 
   if (isLoading) return <Spinner />;
@@ -111,7 +98,7 @@ function SignUp() {
     
     <FormCard>
       <FormWrapper>
-        {isError && <ErrorMessage ref={errorRef} >{error.message}</ErrorMessage>}
+        {isError && <ErrorMessage>{error.message}</ErrorMessage>}
 
         <Title>Sign Up</Title>
 
@@ -122,7 +109,7 @@ function SignUp() {
             <ValidationIcon icon={faTimes} isValid={false} show={!isNameValid && name} />
             <Input
               type="text"
-              name="name"
+              id="name"
               ref={userInputRef}
               autoComplete="off"
               autoCorrect="off"
@@ -149,7 +136,7 @@ function SignUp() {
             <ValidationIcon icon={faTimes} isValid={false} show={!isEmailValid && email} />
             <Input
               type="text"
-              name="email"
+              id="email"
               autoComplete="off"
               autoCorrect="off"
               autoCapitalize="off"
@@ -176,7 +163,7 @@ function SignUp() {
             <ValidationIcon icon={faTimes} isValid={false} show={!isPasswordValid && password} />
             <Input
               type="password"
-              name="password"
+              id="password"
               autoComplete="off"
               autoCorrect="off"
               autoCapitalize="off"
@@ -206,7 +193,7 @@ function SignUp() {
             <ValidationIcon icon={faTimes} isValid={false} show={!isConfirmPasswordValid && confirmPassword} />
             <Input
               type="password"
-              name="confirmPassword"
+              id="confirmPassword"
               autoComplete="off"
               autoCorrect="off"
               autoCapitalize="off"

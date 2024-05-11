@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 import colors from "../../config/colors.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -73,14 +74,19 @@ export const ClickableText = styled.span`
 export const ErrorMessage = styled.p`
   color: ${colors.maroon};
   font-size: 20px;
-  aria-live="assertive"
-  display: ${(props) => (props.isVisible ? "block" : "none")};
+  font-weight: bold;
 `;
 
-export const ValidationIcon = styled(FontAwesomeIcon)`
+export const ValidationIcon = styled(({ isValid, show, ...props }) =>
+  show ? (
+    <FontAwesomeIcon
+      {...props}
+      style={{ color: isValid ? "limegreen" : "red" }}
+    />
+  ) : null
+)`
   margin-left: 0.25rem;
-  color: ${(props) => (props.isValid ? "limegreen" : "red")};
-  display: ${(props) => (props.show ? "inline" : "none")};
+  display: inline;
 `;
 
 export const InstructionText = styled.p`
