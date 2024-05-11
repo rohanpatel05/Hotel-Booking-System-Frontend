@@ -3,7 +3,9 @@ import PropTypes from "prop-types";
 
 const initialState = {
   accessToken: null,
+  accessTokenExpiration: null,
   refreshToken: null,
+  refreshTokenExpiration: null,
   user: null,
 };
 
@@ -14,20 +16,25 @@ const authReducer = (state, action) => {
       return {
         ...state,
         accessToken: action.payload.accessToken,
+        accessTokenExpiration: action.payload.accessTokenExpiration,
         refreshToken: action.payload.refreshToken,
+        refreshTokenExpiration: action.payload.refreshTokenExpiration,
         user: action.payload.user,
       };
     case "SIGN_OUT":
       return {
         ...state,
         accessToken: null,
+        accessTokenExpiration: null,
         refreshToken: null,
+        refreshTokenExpiration: null,
         user: null,
       };
     case "REFRESH_ACCESS_TOKEN":
       return {
         ...state,
         accessToken: action.payload.accessToken,
+        accessTokenExpiration: action.payload.accessTokenExpiration,
       };
     default:
       return state;
@@ -51,8 +58,8 @@ export const AuthProvider = ({ children }) => {
     dispatch({ type: "SIGN_OUT" });
   };
 
-  const refreshAccessToken = (accessToken) => {
-    dispatch({ type: "REFRESH_ACCESS_TOKEN", payload: { accessToken } });
+  const refreshAccessToken = (data) => {
+    dispatch({ type: "REFRESH_ACCESS_TOKEN", payload: data });
   };
 
   return (
