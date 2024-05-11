@@ -4,7 +4,7 @@ import { POST_REFERSH_QUERY_KEY } from "../config/queryKeys.js";
 import { refreshTokenQuery } from "../services/userService.js";
 
 export const useRefresh = () => {
-  const { refreshAccessToken } = useAuth();
+  const { refreshAccessToken, signOut } = useAuth();
 
   const { mutate, isLoading, isError, error } = useMutation({
     mutationKey: [POST_REFERSH_QUERY_KEY],
@@ -16,12 +16,8 @@ export const useRefresh = () => {
       });
     },
     onError: (error) => {
-      if (error.response) {
-        error.message =
-          error.response.data.message || "Unknown error occurred.";
-      } else {
-        error.message = "Network error occurred!";
-      }
+      console.error("Error refreshing token:", error);
+      signOut();
     },
   });
 
