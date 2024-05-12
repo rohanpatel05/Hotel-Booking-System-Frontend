@@ -1,17 +1,28 @@
-import React, {useState} from 'react'
+import React from 'react'
 import { StyledNavBrand, StyledNavLink, StyledNavDropdown } from './TopBarElements';
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { useAuthStatus } from "../../hooks/useAuthStatus.js"
+import { useSignOut } from "../../hooks/useSignOut.js"
+import {OverlayedSpinner as Spinner} from "../../components/index.js";
+import useAuth from '../../hooks/useAuth.js';
 
 function TopBar() {
   const navigate = useNavigate();
-  
-  // eslint-disable-next-line no-unused-vars
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const isAuthenticated = useAuthStatus();
+  const { authState } = useAuth();
+
+  const { signOut, isLoading } = useSignOut(); 
 
   const handleSignInClick = () => {
     navigate("/signin");
   }
+
+  const handleSignOut = () => {
+    signOut();
+  };
+
+  if (isLoading) return <Spinner />;
 
   return (
     <Navbar sticky="top" >
@@ -20,13 +31,13 @@ function TopBar() {
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
             <Nav>
-                {!isLoggedIn ? (                
+                {!isAuthenticated ? (                
                     <StyledNavLink onClick={handleSignInClick}>Sign in</StyledNavLink>
                 ) : (
-                    <StyledNavDropdown title={<text style={{color: 'white'}}>{"User's name"}</text>}>
+                    <StyledNavDropdown title={<text style={{color: 'white'}}>{authState.user.name}</text>} align="end">
                         <NavDropdown.Item >Account Info</NavDropdown.Item>
                         <NavDropdown.Item >Reservations</NavDropdown.Item>
-                        <NavDropdown.Item >Logout</NavDropdown.Item>
+                        <NavDropdown.Item onClick={handleSignOut}>Logout</NavDropdown.Item>
                     </StyledNavDropdown>
                 )
                 }
