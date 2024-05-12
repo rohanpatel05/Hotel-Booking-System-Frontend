@@ -34,7 +34,7 @@ function TopBar() {
                 {!isAuthenticated ? (                
                     <StyledNavLink onClick={handleSignInClick}>Sign in</StyledNavLink>
                 ) : (
-                    <StyledNavDropdown title={<text style={{color: 'white'}}>{authState.user.name}</text>} align="end">
+                    <StyledNavDropdown title={<span style={{color: 'white'}}>{authState.user.name}</span>} align="end">
                         <NavDropdown.Item >Account Info</NavDropdown.Item>
                         <NavDropdown.Item >Reservations</NavDropdown.Item>
                         <NavDropdown.Item onClick={handleSignOut}>Logout</NavDropdown.Item>
