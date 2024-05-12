@@ -9,13 +9,13 @@ export const useSignOut = () => {
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
 
-  const { signOut } = useAuth();
+  const { signOut: clearAuthState, authState } = useAuth();
 
   const { mutate, isLoading, isError, error } = useMutation({
     mutationKey: [POST_SIGNOUT_QUERY_KEY],
-    mutationFn: signOutQuery,
+    mutationFn: (token) => signOutQuery(token),
     onSuccess: () => {
-      signOut();
+      clearAuthState();
       navigate(from, { replace: true });
     },
     onError: (error) => {
@@ -28,5 +28,10 @@ export const useSignOut = () => {
     },
   });
 
-  return { mutate, isLoading, isError, error };
+  return {
+    signOut: () => mutate(authState.accessToken),
+    isLoading,
+    isError,
+    error,
+  };
 };
