@@ -105,7 +105,7 @@ function SignIn() {
                             onBlur={() => setEmailFocus(false)}
                             />
                             {emailFocus && email && !isEmailValid ?
-                                <InstructionText isVisible>
+                                <InstructionText>
                                     <FontAwesomeIcon icon={faInfoCircle} /> 
                                     &ensp; Enter a valid email address. <br />
                                     For example, username@example.com. <br />
@@ -132,7 +132,7 @@ function SignIn() {
                             onBlur={() => setPasswordFocus(false)}
                             />
                             {passwordFocus && password && !isPasswordValid ?
-                                <InstructionText isVisible>
+                                <InstructionText>
                                     <FontAwesomeIcon icon={faInfoCircle} /> 
                                     &ensp; Password must contain: <br />
                                     - 8-16 characters <br />

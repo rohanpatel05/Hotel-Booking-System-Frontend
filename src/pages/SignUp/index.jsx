@@ -120,7 +120,7 @@ function SignUp() {
               onBlur={() => setNameFocus(false)}
             />
             {nameFocus && name && !isNameValid ?
-              <InstructionText isVisible>
+              <InstructionText>
                 <FontAwesomeIcon icon={faInfoCircle} /> 
                 &ensp; Please only enter alphabetic characters. <br />
                 If multiple words, separate them with a space. <br /> 
@@ -147,7 +147,7 @@ function SignUp() {
               onBlur={() => setEmailFocus(false)}
             />
             {emailFocus && email && !isEmailValid ?
-              <InstructionText isVisible>
+              <InstructionText>
                 <FontAwesomeIcon icon={faInfoCircle} /> 
                 &ensp; Enter a valid email address. <br />
                 For example, username@example.com. <br />
@@ -174,7 +174,7 @@ function SignUp() {
               onBlur={() => setPasswordFocus(false)}
             />
             {passwordFocus && password && !isPasswordValid ?
-              <InstructionText isVisible>
+              <InstructionText>
                 <FontAwesomeIcon icon={faInfoCircle} /> 
                 &ensp; Password must contain: <br />
                 - 8-16 characters <br />
@@ -204,7 +204,7 @@ function SignUp() {
               onBlur={() => setConfirmPasswordFocus(false)}
             />
             {confirmPasswordFocus && confirmPassword && !isConfirmPasswordValid ?
-              <InstructionText isVisible>
+              <InstructionText>
                 <FontAwesomeIcon icon={faInfoCircle} /> 
                 &ensp; Re-enter your password to confirm. <br />
                 Must match with your password.

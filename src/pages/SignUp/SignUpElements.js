@@ -97,6 +97,5 @@ export const InstructionText = styled.p`
   padding: 0.25rem;
   position: relative;
   bottom: -10px;
-  visibility: ${(props) => (props.isVisible ? "visible" : "hidden")};
   margin-right: 0.25rem;
 `;
