@@ -43,10 +43,7 @@ export const AddRemoveButton = styled.button`
   background-color: ${colors.maroon};
 `;
 
-export const Text = styled.span`
-  min-width: 20px;
-  text-align: center;
-`;
+export const Text = styled.span``;
 
 export const RoomDropdownButton = styled(DropdownButton)`
   background-color: ${colors.maroon};
@@ -70,7 +67,7 @@ export const RoomDropdownItem = styled(DropdownItem)`
   }
 `;
 
-export const CheckAvailabilitybutton = styled.button`
+export const SubmitButton = styled.button`
   display: block;
   margin: 40px auto;
   padding: 10px 20px;
@@ -92,14 +89,52 @@ export const CheckAvailabilitybutton = styled.button`
   }
 
   &:disabled {
-    background-color: ${colors.maroon}; /* Ensure the same background color */
+    background-color: ${colors.maroon};
     cursor: not-allowed;
     &:hover {
-      background-color: ${colors.maroon}; /* Prevent hover color change */
+      background-color: ${colors.maroon};
     }
     &:active {
-      background-color: ${colors.maroon}; /* Prevent active color change */
-      box-shadow: none; /* Remove box-shadow on active */
+      background-color: ${colors.maroon};
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     }
   }
+`;
+
+export const RoomAvailabilityBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 40px auto;
+  padding: 10px 20px;
+  max-width: 80%;
+`;
+
+export const AvailableRoomText = styled.span`
+  color: ${colors.brightGreen};
+  font-family: KiwiMaruMedium;
+  font-size: 1.5rem;
+  text-align: center;
+`;
+
+export const NonAvailableRoomText = styled.span`
+  color: ${colors.maroon};
+  font-family: KiwiMaruMedium;
+  font-size: 1.5rem;
+  text-align: center;
+`;
+
+export const SignInPromptWrapper = styled.div`
+  text-align: center;
+`;
+
+export const NonClickableText = styled.span`
+  color: ${colors.darkBeige};
+`;
+
+export const ClickableText = styled.span`
+  color: ${colors.pale};
+  text-decoration: underline;
+  cursor: pointer;
 `;

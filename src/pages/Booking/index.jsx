@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { TopBar } from '../../components/index.js'
+import React, { useEffect, useState } from 'react';
+import { OverlayedSpinner as Spinner, StyledErrorAlert, TopBar } from '../../components/index.js';
 import { 
   AddRemoveButton, 
   Field, 
@@ -10,7 +10,13 @@ import {
   RoomDropdownButton, 
   RoomDropdownMenu, 
   RoomDropdownItem, 
-  CheckAvailabilitybutton
+  SubmitButton,
+  RoomAvailabilityBlock,
+  AvailableRoomText,
+  NonAvailableRoomText,
+  NonClickableText,
+  ClickableText,
+  SignInPromptWrapper
 } from "./BookingElements.js";
 import { BOOKING_HEADING } from '../../config/textDescriptions.js';
 import 'react-dates/initialize';
@@ -18,6 +24,9 @@ import 'react-dates/lib/css/_datepicker.css';
 import { DateRangePicker } from 'react-dates';
 import { Dropdown } from 'react-bootstrap';
 import { roomTypeMap } from '../../config/roomsMap.js';
+import { useCheckAvailability } from "../../hooks/useCheckAvailability.js";
+import { useAuthStatus } from "../../hooks/useAuthStatus.js"
+import { useNavigate } from "react-router-dom";
 
 function Booking() {
   const MAX_ROOMS = 3;
@@ -27,6 +36,9 @@ function Booking() {
   const MAX_ADULTS = 18;
   const MAX_CHILDREN = 18;
 
+  const navigate = useNavigate();
+  const isAuthenticated = useAuthStatus();
+
   const [checkInDate, setCheckInDate] = useState(null);
   const [checkOutDate, setCheckOutDate] = useState(null);
   const [focusedInput, setFocusedInput] = useState(null);
@@ -35,6 +47,11 @@ function Booking() {
   const [rooms, setRooms] = useState({ Classic: 1, Deluxe: 0, Suite: 0 });
   const [totalRooms, setTotalRooms] = useState(1);
   const [dropdownVisible, setDropdownVisible] = useState(false);
+  const [roomAvailabilityMessages, setRoomAvailabilityMessages] = useState([]);
+  const [allRoomsAvailable, setAllRoomsAvailable] = useState(false);
+  const [displaySigninMessage, setDisplaySigninMessage] = useState(false);
+
+  const {mutate: checkAvailability, data: checkAvailabilityData, isLoading, isError, error} = useCheckAvailability();
 
   const handleAdultsChange = (amount) => {
     const max = Math.min(MAX_ADULTS, totalRooms * 2)
@@ -61,14 +78,43 @@ function Booking() {
     return checkInDate && checkOutDate && adults > 0;
   };
 
-  const handleSubmit = (event) => {
+  const handleCheckAvailabilitySubmit = (event) => {
     event.preventDefault();
+
+    setDropdownVisible(false);
+
+    const formattedCheckInDate = checkInDate ? checkInDate.format('YYYY-MM-DD') : null;
+    const formattedCheckOutDate = checkOutDate ? checkOutDate.format('YYYY-MM-DD') : null;
+
     if (isFormValid()) {
-      console.log('Booking details:');
-    } else {
-      console.log('Form is not valid');
-    }
+      const checkAvailabilityBody = {
+        requests: Object.keys(rooms)
+          .filter((type) => (rooms[type] > 0))
+          .map((type) => ({
+            type: type,
+            quantity: rooms[type],
+            checkInDate: formattedCheckInDate,
+            checkOutDate: formattedCheckOutDate
+          }))
+      };
+      checkAvailability(checkAvailabilityBody);
+    } 
   };
+
+  const handleBookNowSubmit = (event) =>{
+    event.preventDefault();
+
+    if (!isAuthenticated) {
+      setDisplaySigninMessage(true);
+    } else {
+      setDisplaySigninMessage(false);
+    }
+    
+  }
+
+  const handleSignInClick = () => {
+    navigate("/signin");
+  }
 
   useEffect(() => {
     const handleRoomIncrement = async () =>{
@@ -95,6 +141,39 @@ function Booking() {
 
     handleRoomIncrement();
   },[rooms])
+
+  useEffect(() => {
+    if (checkAvailabilityData) {
+      const allAvailable = checkAvailabilityData.every(result => result.available);
+      setAllRoomsAvailable(allAvailable);
+
+      const messages = checkAvailabilityData.map(result => {
+        if (result.available) {
+          return (
+            <AvailableRoomText key={result.type}>
+              All desired {result.type} rooms are available.
+            </AvailableRoomText>
+          );
+        } else if (result.quantityAvailable === 0) {
+          return (
+            <NonAvailableRoomText key={result.type}>
+              No {result.type} rooms are available.
+            </NonAvailableRoomText>
+          );
+        } else {
+          return (
+            <NonAvailableRoomText key={result.type}>
+              Only {result.quantityAvailable} of {result.quantityRequested} desired {result.type} rooms are available.
+            </NonAvailableRoomText>
+          );
+        }
+      });
+
+      setRoomAvailabilityMessages(messages);
+    }
+  }, [checkAvailabilityData]);
+
+  if (isLoading) return <Spinner />;
 
   return (
     <>
@@ -142,10 +221,10 @@ function Booking() {
               {Object.keys(rooms).map((type) => (
                 <RoomDropdownItem key={type} as="div">
                   <Field>
-                  <Label>{roomTypeMap[type]}</Label>
-                    <AddRemoveButton onClick={() => handleRoomsChange(type, -1)}>-</AddRemoveButton>
-                    <Text>{rooms[type]}</Text>
-                    <AddRemoveButton onClick={() => handleRoomsChange(type, 1)}>+</AddRemoveButton>
+                  <Text>{roomTypeMap[type]}</Text>
+                  <AddRemoveButton onClick={() => handleRoomsChange(type, -1)}>-</AddRemoveButton>
+                  <Text>{rooms[type]}</Text>
+                  <AddRemoveButton onClick={() => handleRoomsChange(type, 1)}>+</AddRemoveButton>
                   </Field>
                 </RoomDropdownItem>
               ))}
@@ -154,7 +233,33 @@ function Booking() {
         </Field>
       </FormWrapper>
 
-      <CheckAvailabilitybutton disabled={!isFormValid()} onClick={handleSubmit}>Check Availability</CheckAvailabilitybutton>
+      <SubmitButton disabled={!isFormValid()} onClick={handleCheckAvailabilitySubmit}>Check Availability</SubmitButton>
+
+      {isError ? (
+        <StyledErrorAlert variant="danger">
+          Error checking availability&apos;s info: {error.message}
+        </StyledErrorAlert>
+      ) : allRoomsAvailable ? (
+        <>
+          <RoomAvailabilityBlock>
+            <AvailableRoomText>
+              All desired rooms are available!
+            </AvailableRoomText>
+          </RoomAvailabilityBlock>
+          <SubmitButton onClick={handleBookNowSubmit}>Book Now</SubmitButton>
+          {displaySigninMessage &&
+          <SignInPromptWrapper>
+            <NonClickableText>To start the booking process please </NonClickableText>
+            <ClickableText onClick={handleSignInClick} >Sign In</ClickableText>
+          </SignInPromptWrapper>}
+        </>
+      ) : (
+        roomAvailabilityMessages.map((message, index) => (
+          <RoomAvailabilityBlock key={index}>
+            {message}
+          </RoomAvailabilityBlock>
+        ))
+      )}
     </>
   )
 }
