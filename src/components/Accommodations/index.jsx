@@ -20,6 +20,7 @@ import { roomTypeMap } from "../../config/roomsMap.js";
 import { useDispatch, useSelector } from "react-redux";
 import { updateRooms } from "../../features/rooms/roomsSlice.js";
 import { useNavigate } from "react-router-dom";
+import getUniqueRoomTypes from "../../config/uniqueRooms.js"
 
 function Accommodations() {
   const navigate = useNavigate();
@@ -59,20 +60,6 @@ function Accommodations() {
         Error loading rooms&apos; info: {error.message}
       </StyledErrorAlert>
     );
-
-  const getUniqueRoomTypes = (rooms) => {
-    const uniqueRooms = [];
-    const seenTypes = new Set();
-
-    rooms.forEach((room) => {
-      if (!seenTypes.has(room.type)) {
-        seenTypes.add(room.type);
-        uniqueRooms.push(room);
-      }
-    });
-
-    return uniqueRooms;
-  };
 
   const handleRoomClick = (roomType) => {
     navigate(`/room/${roomType}`);
