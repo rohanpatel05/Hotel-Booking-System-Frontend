@@ -12,6 +12,8 @@ const colors = {
   lightNavy: "#70818E",
   maroon: "#B3514B",
   mediumGrey: "#BCBCBC",
+  dullGreen: "#45835D",
+  brightGreen: "#49C679",
 };
 
 export default colors;
