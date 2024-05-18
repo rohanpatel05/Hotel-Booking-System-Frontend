@@ -17,6 +17,7 @@ import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 import { DateRangePicker } from 'react-dates';
 import { Dropdown } from 'react-bootstrap';
+import { roomTypeMap } from '../../config/roomsMap.js';
 
 function Booking() {
   const MAX_ROOMS = 3;
@@ -31,7 +32,7 @@ function Booking() {
   const [focusedInput, setFocusedInput] = useState(null);
   const [adults, setAdults] = useState(1);
   const [children, setChildren] = useState(0);
-  const [rooms, setRooms] = useState({ classic: 1, deluxe: 0, suite: 0 });
+  const [rooms, setRooms] = useState({ Classic: 1, Deluxe: 0, Suite: 0 });
   const [totalRooms, setTotalRooms] = useState(1);
   const [dropdownVisible, setDropdownVisible] = useState(false);
 
@@ -71,11 +72,11 @@ function Booking() {
 
   useEffect(() => {
     const handleRoomIncrement = async () =>{
-      const total = Math.min(rooms.classic + rooms.deluxe + rooms.suite, MAX_TOTAL_ROOMS);
+      const total = Math.min(rooms.Classic + rooms.Deluxe + rooms.Suite, MAX_TOTAL_ROOMS);
       setTotalRooms(total);
 
       if (total === 0) {
-        setRooms({ classic: 1, deluxe: 0, suite: 0 });
+        setRooms({ Classic: 1, Deluxe: 0, Suite: 0 });
         setTotalRooms(1);
       }
 
@@ -141,7 +142,7 @@ function Booking() {
               {Object.keys(rooms).map((type) => (
                 <RoomDropdownItem key={type} as="div">
                   <Field>
-                    <Label>{`${type.charAt(0).toUpperCase() + type.slice(1)} Rooms:`}</Label>
+                  <Label>{roomTypeMap[type]}</Label>
                     <AddRemoveButton onClick={() => handleRoomsChange(type, -1)}>-</AddRemoveButton>
                     <Text>{rooms[type]}</Text>
                     <AddRemoveButton onClick={() => handleRoomsChange(type, 1)}>+</AddRemoveButton>
