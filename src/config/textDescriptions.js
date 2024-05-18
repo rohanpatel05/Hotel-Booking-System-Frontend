@@ -36,3 +36,6 @@ export const COMPANY_FACEBOOK = "Facebook";
 export const COMPANY_INSTAGRAM = "Instagram";
 
 export const COMPANY_POLICY = "Privacy Policy & Cookies";
+
+export const BOOKING_HEADING =
+  "Welcome to The Hotel! Start planning your perfect stay with us.";
