@@ -3,7 +3,7 @@ import { POST_PAYMENTINTENT_QUERY_KEY } from "../config/queryKeys.js";
 import { paymentIntentQuery } from "../services/paymentService.js";
 
 export const usePaymentIntent = () => {
-  const { mutate, isLoading, isError, error } = useMutation({
+  const { mutate, data, isLoading, isError, error } = useMutation({
     mutationKey: [POST_PAYMENTINTENT_QUERY_KEY],
     mutationFn: paymentIntentQuery,
     onError: (error) => {
@@ -16,5 +16,5 @@ export const usePaymentIntent = () => {
     },
   });
 
-  return { mutate, isLoading, isError, error };
+  return { mutate, data, isLoading, isError, error };
 };

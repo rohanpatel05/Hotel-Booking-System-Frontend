@@ -27,6 +27,8 @@ import { roomTypeMap } from '../../config/roomsMap.js';
 import { useCheckAvailability } from "../../hooks/useCheckAvailability.js";
 import { useAuthStatus } from "../../hooks/useAuthStatus.js"
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setAvailabilityData } from "../../features/availability/availabilitySlice";
 
 function Booking() {
   const MAX_ROOMS = 3;
@@ -36,6 +38,7 @@ function Booking() {
   const MAX_ADULTS = 18;
   const MAX_CHILDREN = 18;
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const isAuthenticated = useAuthStatus();
 
@@ -51,7 +54,13 @@ function Booking() {
   const [allRoomsAvailable, setAllRoomsAvailable] = useState(false);
   const [displaySigninMessage, setDisplaySigninMessage] = useState(false);
 
-  const {mutate: checkAvailability, data: checkAvailabilityData, isLoading, isError, error} = useCheckAvailability();
+  const {
+    mutate: checkAvailability, 
+    data: checkAvailabilityData, 
+    isLoading: checkAvailabilityIsLoading, 
+    isError: checkAvailabilityIsError, 
+    error: checkAvailabilityError
+  } = useCheckAvailability();
 
   const handleAdultsChange = (amount) => {
     const max = Math.min(MAX_ADULTS, totalRooms * 2)
@@ -101,15 +110,24 @@ function Booking() {
     } 
   };
 
-  const handleBookNowSubmit = (event) =>{
+  const handleBookNowSubmit = async (event) =>{
     event.preventDefault();
 
     if (!isAuthenticated) {
       setDisplaySigninMessage(true);
     } else {
       setDisplaySigninMessage(false);
+
+      const formattedCheckInDate = checkInDate ? checkInDate.format('YYYY-MM-DD') : null;
+      const formattedCheckOutDate = checkOutDate ? checkOutDate.format('YYYY-MM-DD') : null;
+
+      dispatch(setAvailabilityData({
+        data: checkAvailabilityData,
+        checkInDate: formattedCheckInDate,
+        checkOutDate: formattedCheckOutDate,
+      }));
+      navigate("/payment");
     }
-    
   }
 
   const handleSignInClick = () => {
@@ -173,7 +191,7 @@ function Booking() {
     }
   }, [checkAvailabilityData]);
 
-  if (isLoading) return <Spinner />;
+  if (checkAvailabilityIsLoading) return <Spinner />;
 
   return (
     <>
@@ -235,9 +253,9 @@ function Booking() {
 
       <SubmitButton disabled={!isFormValid()} onClick={handleCheckAvailabilitySubmit}>Check Availability</SubmitButton>
 
-      {isError ? (
+      {checkAvailabilityIsError ? (
         <StyledErrorAlert variant="danger">
-          Error checking availability&apos;s info: {error.message}
+          Error checking availability&apos;s info: {checkAvailabilityError.message}
         </StyledErrorAlert>
       ) : allRoomsAvailable ? (
         <>

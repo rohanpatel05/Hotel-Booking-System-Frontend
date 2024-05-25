@@ -7,3 +7,4 @@ export { default as GuestReviewSection } from "./GuestReview/index.jsx";
 export { default as OverlayedSpinner } from "./Spinner.jsx";
 export { default as TopBar } from "./TopBar/index.jsx";
 export { default as WelcomeSection } from "./Welcome/index.jsx";
+export { default as CheckoutForm } from "./CheckoutForm/index.jsx";
