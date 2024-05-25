@@ -8,6 +8,8 @@ import useAuth from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import {OverlayedSpinner as Spinner} from "../index"
+import axios from "axios";
+import { BASE_URL } from "../../config/url";
 
 export default function CheckoutForm() {
   const { authState } = useAuth();
@@ -19,23 +21,24 @@ export default function CheckoutForm() {
   const [paymentErrorMessage, setPaymentErrorMessage] = useState(null);
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
 
-  const { data: checkAvailabilityData, checkInDate, checkOutDate } = useSelector(state => state.availability);
+  const { data: checkAvailabilityData, checkInDate, checkOutDate, totalAmount } = useSelector(state => state.availability);
 
   const { mutate: createBooking, isLoading } = useCreateBooking();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     if (!stripe || !elements) {
       return;
     }
-
+  
     setIsProcessingPayment(true);
-
+  
     const { error, paymentIntent } = await stripe.confirmPayment({
       elements,
+      redirect: 'if_required'
     });
-
+  
     if (error) {
       if (error.type === "card_error" || error.type === "validation_error") {
         setPaymentErrorMessage(error.message);
@@ -44,36 +47,52 @@ export default function CheckoutForm() {
       }
       setIsProcessingPayment(false);
     } else if (paymentIntent && paymentIntent.status === 'succeeded') {
+  
+      const paymentMethodId = paymentIntent.payment_method;
+  
+      try {
+        const response = await axios.post(`${BASE_URL}/payment/retrieve-payment-method`, {
+          paymentMethodId: paymentMethodId,
+        });
+  
+        const paymentMethod = response.data.type;
+  
+        const bookings = checkAvailabilityData.flatMap(roomType =>
+          roomType.rooms.map(room => ({
+            roomId: room.roomId,
+            checkInDate: checkInDate,
+            checkOutDate: checkOutDate,
+          }))
+        );
+  
+        const createBookingBody = {
+          bookings: bookings,
+          totalAmount: totalAmount,
+          paymentMethod: paymentMethod 
+        };
 
-      const bookings = checkAvailabilityData.flatMap(roomType =>
-        roomType.rooms.map(room => ({
-          roomId: room.roomId,
-          checkInDate: checkInDate,
-          checkOutDate: checkOutDate,
-        }))
-      );
-
-      const createBookingBody = {
-        bookings,
-      };
-
-      createBooking({accessToken: authState.accessToken, createBookingBody}, {
-        onError: (error) => {
-          if (error.response) {
-            error.message =
-              error.response.data.message || "Unknown error occurred.";
-          } else {
-            error.message = "Network error occurred!";
+  
+        createBooking({accessToken: authState.accessToken, createBookingBody}, {
+          onError: (error) => {
+            if (error.response) {
+              error.message =
+                error.response.data.message || "Unknown error occurred.";
+            } else {
+              error.message = "Network error occurred!";
+            }
+            setPaymentErrorMessage(error.message);
+          },
+          onSuccess: () =>{
+            navigate('/completion');
+          },
+          onSettled: () => {
+            setIsProcessingPayment(false);
           }
-          setPaymentErrorMessage(error.message);
-        },
-        onSuccess: () =>{
-          navigate('/completion');
-        },
-        onSettled: () => {
-          setIsProcessingPayment(false);
-        }
-      });
+        });
+      } catch (error) {
+        setPaymentErrorMessage("Failed to retrieve payment method details.");
+        setIsProcessingPayment(false);
+      }
     }
   };
 

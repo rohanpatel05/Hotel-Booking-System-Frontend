@@ -121,10 +121,19 @@ function Booking() {
       const formattedCheckInDate = checkInDate ? checkInDate.format('YYYY-MM-DD') : null;
       const formattedCheckOutDate = checkOutDate ? checkOutDate.format('YYYY-MM-DD') : null;
 
+      let amount = 0;
+
+      checkAvailabilityData.forEach(type => {
+          type.rooms.forEach(room => {
+              amount += room.price;
+          });
+      });
+      
       dispatch(setAvailabilityData({
         data: checkAvailabilityData,
         checkInDate: formattedCheckInDate,
         checkOutDate: formattedCheckOutDate,
+        totalAmount: amount,
       }));
       navigate("/payment");
     }

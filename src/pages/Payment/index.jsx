@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { NotFound } from "../index.js"
 import { CheckoutForm, OverlayedSpinner as Spinner, StyledErrorAlert } from "../../components/index.js";
 import { Elements } from "@stripe/react-stripe-js";
+import { Container, InfoSectionWrapper, Title, OrderInfo } from "./PaymentElements.js"
 
 function Payment() {
     const { authState } = useAuth();
@@ -16,7 +17,7 @@ function Payment() {
     const [stripePromise, setStripePromise] = useState(null);
     const [clientSecret, setClientSecret] = useState("");
 
-    const { data: checkAvailabilityData, checkInDate, checkOutDate } = useSelector(state => state.availability);
+    const { data: checkAvailabilityData, checkInDate, checkOutDate, totalAmount } = useSelector(state => state.availability);
 
     const {
         mutate: getPaymentIntent,
@@ -28,37 +29,41 @@ function Payment() {
 
     useEffect(() => {
         const fetchPaymentIntent = async () => {
-            let amount = 0;
+            if (totalAmount && authState.accessToken) {
 
-            checkAvailabilityData.forEach(type => {
-                type.rooms.forEach(room => {
-                    amount += room.price;
+                const paymentIntentBody = { amount: totalAmount };
+
+                getPaymentIntent({
+                    accessToken: authState.accessToken,
+                    paymentIntentBody
                 });
-            });
-
-            const paymentIntentBody = { amount };
-
-            getPaymentIntent({
-                accessToken: authState.accessToken,
-                paymentIntentBody
-            });
-
-            if (paymentIntentData !== undefined) {
-                setClientSecret(paymentIntentData.paymentIntent);
             }
         };
 
-        if (checkAvailabilityData !== null) {
-            fetchPaymentIntent();
-        }
-    }, [checkAvailabilityData, authState.accessToken, getPaymentIntent]);
+        fetchPaymentIntent();
+    }, [totalAmount, authState.accessToken, getPaymentIntent]);
 
     useEffect(() => {
-        axios.get
-        fetch(BASE_URL + "/payment/config").then(async (r) => {
-            const { publishableKey } = await r.json();
-            setStripePromise(loadStripe(publishableKey));
-        });
+        if (paymentIntentData) {
+            setClientSecret(paymentIntentData.paymentIntent);
+        }        
+    }, [paymentIntentData]);
+
+    useEffect(() => {
+        const fetchStripeConfig = async () => {
+            try {
+                const response = await axios.get(`${BASE_URL}/payment/config`);
+                const publishableKey = response.data.publishableKey;
+                if (!publishableKey) {
+                    throw new Error("Missing publishable key");
+                }
+                setStripePromise(loadStripe(publishableKey));
+            } catch (error) {
+                console.error("Error fetching Stripe config:", error);
+            }
+        };
+
+        fetchStripeConfig();
     },[])
 
     if (checkAvailabilityData === null) {
@@ -77,7 +82,22 @@ function Payment() {
 
     return (
         <>
-            <h1>React Stripe and the Payment Element</h1>
+            <Container>
+                <Title>Order Info</Title>
+                <InfoSectionWrapper>
+                    <OrderInfo>Check-in Date: {checkInDate}</OrderInfo>
+                    <br/>
+                    <OrderInfo>Check-out Date: {checkOutDate}</OrderInfo>
+                </InfoSectionWrapper>
+
+                <InfoSectionWrapper>
+                    {checkAvailabilityData.map((roomType, index) => (
+                        <OrderInfo key={index}>{roomType.rooms.length} {roomType.type} {roomType.rooms.length === 1 ? "room" : "rooms" }.</OrderInfo>
+                    ))}
+                </InfoSectionWrapper>
+
+                <OrderInfo>Total amount: ${totalAmount}</OrderInfo>
+            </Container>
             {clientSecret && stripePromise && (
                 <Elements stripe={stripePromise} options={{ clientSecret }}>
                     <CheckoutForm />
