@@ -19,9 +19,6 @@ import {
   SignInPromptWrapper
 } from "./BookingElements.js";
 import { BOOKING_HEADING } from '../../config/textDescriptions.js';
-import 'react-dates/initialize';
-import 'react-dates/lib/css/_datepicker.css';
-import { DateRangePicker } from 'react-dates';
 import { Dropdown } from 'react-bootstrap';
 import { roomTypeMap } from '../../config/roomsMap.js';
 import { useCheckAvailability } from "../../hooks/useCheckAvailability.js";
@@ -29,6 +26,9 @@ import { useAuthStatus } from "../../hooks/useAuthStatus.js"
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setAvailabilityData } from "../../features/availability/availabilitySlice";
+import { DatePicker } from 'react-rainbow-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCalendar } from '@fortawesome/free-solid-svg-icons';
 
 function Booking() {
   const MAX_ROOMS = 3;
@@ -42,9 +42,7 @@ function Booking() {
   const navigate = useNavigate();
   const isAuthenticated = useAuthStatus();
 
-  const [checkInDate, setCheckInDate] = useState(null);
-  const [checkOutDate, setCheckOutDate] = useState(null);
-  const [focusedInput, setFocusedInput] = useState(null);
+  const [dateRange, setDateRange] = useState([]);
   const [adults, setAdults] = useState(1);
   const [children, setChildren] = useState(0);
   const [rooms, setRooms] = useState({ Classic: 1, Deluxe: 0, Suite: 0 });
@@ -84,7 +82,11 @@ function Booking() {
   };
 
   const isFormValid = () => {
-    return checkInDate && checkOutDate && adults > 0;
+    return Array.isArray(dateRange) && dateRange.length === 2 && adults > 0;
+  };
+  
+  const formatDateString = (date) => {
+    return date.toISOString().split('T')[0];
   };
 
   const handleCheckAvailabilitySubmit = (event) => {
@@ -92,8 +94,8 @@ function Booking() {
 
     setDropdownVisible(false);
 
-    const formattedCheckInDate = checkInDate ? checkInDate.format('YYYY-MM-DD') : null;
-    const formattedCheckOutDate = checkOutDate ? checkOutDate.format('YYYY-MM-DD') : null;
+    const formattedCheckInDate = dateRange.length === 2 ? formatDateString(dateRange[0]) : null;
+    const formattedCheckOutDate = dateRange.length === 2 ? formatDateString(new Date(dateRange[1].setHours(0, 0, 0, 0))) : null;
 
     if (isFormValid()) {
       const checkAvailabilityBody = {
@@ -118,8 +120,8 @@ function Booking() {
     } else {
       setDisplaySigninMessage(false);
 
-      const formattedCheckInDate = checkInDate ? checkInDate.format('YYYY-MM-DD') : null;
-      const formattedCheckOutDate = checkOutDate ? checkOutDate.format('YYYY-MM-DD') : null;
+      const formattedCheckInDate = dateRange.length === 2 ? formatDateString(dateRange[0]) : null;
+      const formattedCheckOutDate = dateRange.length === 2 ? formatDateString(new Date(dateRange[1].setHours(0, 0, 0, 0))) : null;
 
       let amount = 0;
 
@@ -208,21 +210,23 @@ function Booking() {
       <Heading>{BOOKING_HEADING}</Heading>
       <FormWrapper>
         <Field>
-        <DateRangePicker
-            startDate={checkInDate}
-            startDateId="startDate"
-            startDatePlaceholderText='Check In'
-            endDate={checkOutDate}
-            endDateId="endDate"
-            endDatePlaceholderText='Check Out'
-            onDatesChange={({ startDate, endDate }) => {
-              setCheckInDate(startDate);
-              setCheckOutDate(endDate);
-            }}
-            focusedInput={focusedInput}
-            onFocusChange={setFocusedInput}
-            minimumNights={1}
-          />
+          <div
+            className="rainbow-align-content_center rainbow-m-vertical_large rainbow-p-horizontal_small rainbow-m_auto"
+          >
+            <DatePicker
+              id="datePicker"
+              label="Check in - Check out"
+              placeholder="Check in - Check out"
+              selectionType="range"
+              formatStyle="large"
+              variant="double"
+              value={dateRange}
+              onChange={value => setDateRange(value)}
+              minDate={new Date()}
+              required
+              icon={<FontAwesomeIcon icon={faCalendar} />}
+            />
+          </div>
         </Field>
         
         <Field>
