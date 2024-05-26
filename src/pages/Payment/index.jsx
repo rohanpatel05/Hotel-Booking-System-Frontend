@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { BASE_URL } from '../../config/url';
@@ -92,7 +91,7 @@ function Payment() {
 
                 <InfoSectionWrapper>
                     {checkAvailabilityData.map((roomType, index) => (
-                        <OrderInfo key={index}>{roomType.rooms.length} {roomType.type} {roomType.rooms.length === 1 ? "room" : "rooms" }.</OrderInfo>
+                        <div key={index}>{roomType.rooms.length} {roomType.type} {roomType.rooms.length === 1 ? "room" : "rooms" }.</div>
                     ))}
                 </InfoSectionWrapper>
 

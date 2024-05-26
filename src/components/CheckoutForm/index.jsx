@@ -83,7 +83,7 @@ export default function CheckoutForm() {
             setPaymentErrorMessage(error.message);
           },
           onSuccess: () =>{
-            navigate('/completion');
+            navigate('/completion', { replace: true });
           },
           onSettled: () => {
             setIsProcessingPayment(false);
