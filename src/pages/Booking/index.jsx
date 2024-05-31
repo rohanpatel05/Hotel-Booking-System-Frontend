@@ -5,7 +5,6 @@ import {
   Field, 
   FormWrapper, 
   Heading, 
-  Label, 
   Text, 
   RoomDropdownButton, 
   RoomDropdownMenu, 
@@ -230,16 +229,16 @@ function Booking() {
         </Field>
         
         <Field>
-          <Label>Adults:</Label>
+          <Text>Adults:</Text>
           <AddRemoveButton onClick={() => handleAdultsChange(-1)} >-</AddRemoveButton>
-          <Text>{adults}</Text>
+          <Text id="adults">{adults}</Text>
           <AddRemoveButton onClick={() => handleAdultsChange(1)}>+</AddRemoveButton>
         </Field>
 
         <Field>
-          <Label>Childrens:</Label>
+          <Text>Childrens:</Text>
           <AddRemoveButton onClick={() => handleChildrenChange(-1)} >-</AddRemoveButton>
-          <Text>{children}</Text>
+          <Text id="children">{children}</Text>
           <AddRemoveButton onClick={() => handleChildrenChange(1)}>+</AddRemoveButton>
         </Field>
 

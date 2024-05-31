@@ -5,4 +5,5 @@ export { default as Booking } from "./Booking/index.jsx";
 export { default as SignUp } from "./SignUp/index.jsx";
 export { default as SignIn } from "./SignIn/index.jsx";
 export { default as Payment } from "./Payment/index.jsx";
-export { default as Completion } from "./Completion/index.js";
+export { default as Completion } from "./Completion/index.jsx";
+export { default as Reservations } from "./Reservations/index.jsx";

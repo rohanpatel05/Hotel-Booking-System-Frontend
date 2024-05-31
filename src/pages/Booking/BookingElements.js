@@ -32,8 +32,6 @@ export const Field = styled.div`
   padding: 0px 10px;
 `;
 
-export const Label = styled.label``;
-
 export const AddRemoveButton = styled.button`
   color: ${colors.white};
   border-radius: 1rem;

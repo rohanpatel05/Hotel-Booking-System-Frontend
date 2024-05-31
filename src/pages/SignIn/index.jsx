@@ -87,7 +87,7 @@ function SignIn() {
                     <Title>Sign In</Title>
 
                     <Form onSubmit={handleSubmit}>
-                        <InputLable>
+                        <InputLable htmlFor="email">
                             Email:
                             <ValidationIcon icon={faCheck} isValid={true} show={isEmailValid} />
                             <ValidationIcon icon={faTimes} isValid={false} show={!isEmailValid && email} />
@@ -115,7 +115,7 @@ function SignIn() {
                             }
                         </InputLable>
 
-                        <InputLable>
+                        <InputLable htmlFor="password">
                             Password:
                             <ValidationIcon icon={faCheck} isValid={true} show={isPasswordValid} />
                             <ValidationIcon icon={faTimes} isValid={false} show={!isPasswordValid && password} />

@@ -24,3 +24,17 @@ export const createBooking = async ({ accessToken, createBookingBody }) => {
 
   return data;
 };
+
+export const fetchReservations = async (accessToken) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  };
+
+  const { data } = await axiosInstance.get(
+    `${bookingUrlEndpoint}/by-user`,
+    config
+  );
+  return data;
+};

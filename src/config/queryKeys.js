@@ -10,6 +10,7 @@ export const POST_REFERSH_QUERY_KEY = "refeshAccessToken";
 //Booking
 export const POST_CHECKAVAILABILITY_QUERY_KEY = "checkAvailability";
 export const POST_CREATEBOOKING_QUERY_KEY = "createBooking";
+export const GET_RESERVATIONS_QUERY_KEY = "reservation";
 
 // Payment
 export const POST_PAYMENTINTENT_QUERY_KEY = "paymentIntent";
