@@ -34,7 +34,7 @@ function TopBar() {
   if (isLoading) return <Spinner />;
 
   return (
-    <Navbar sticky="top" >
+    <Navbar>
       <Container>
         <StyledNavBrand href="/">The Hotel</StyledNavBrand>
         <Navbar.Toggle />
