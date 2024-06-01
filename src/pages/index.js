@@ -7,3 +7,4 @@ export { default as SignIn } from "./SignIn/index.jsx";
 export { default as Payment } from "./Payment/index.jsx";
 export { default as Completion } from "./Completion/index.jsx";
 export { default as Reservations } from "./Reservations/index.jsx";
+export { default as UserInfo } from "./UserInfo/index.jsx";

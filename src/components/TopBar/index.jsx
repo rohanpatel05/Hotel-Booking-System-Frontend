@@ -31,6 +31,12 @@ function TopBar() {
     }
   }
 
+  const handleUserInfo = () => {
+    if (currLocation !== "/userinfo") {
+      navigate("/userinfo");
+    }
+  }
+
   if (isLoading) return <Spinner />;
 
   return (
@@ -44,7 +50,7 @@ function TopBar() {
                     <StyledNavLink onClick={handleSignInClick}>Sign in</StyledNavLink>
                 ) : (
                     <StyledNavDropdown title={<span style={{color: 'white'}}>{authState.user.name}</span>} align="end">
-                        <NavDropdown.Item >Account Info</NavDropdown.Item>
+                        <NavDropdown.Item onClick={handleUserInfo}>Account Info</NavDropdown.Item>
                         <NavDropdown.Item onClick={handleReservations}>Reservations</NavDropdown.Item>
                         <NavDropdown.Item onClick={handleSignOut}>Logout</NavDropdown.Item>
                     </StyledNavDropdown>
