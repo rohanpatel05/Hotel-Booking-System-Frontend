@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Form, Row, Col } from "react-bootstrap";
 import {
@@ -31,6 +31,8 @@ const UpdateUserInfo = ({ initialData, onRefresh }) => {
   );
 
   const [errors, setErrors] = useState({});
+  const [hasChanges, setHasChanges] = useState(false);
+
   const {
     mutate: updateUserInfo,
     data: updateUserInfoData,
@@ -38,6 +40,18 @@ const UpdateUserInfo = ({ initialData, onRefresh }) => {
     isError: updateUserInfoIsError,
     error: updateUserInfoError,
   } = useUpdateUserInfo();
+
+  useEffect(() => {
+    const hasFormChanged =
+      name !== initialData?.name ||
+      phoneNumber !== initialData?.phoneNumber ||
+      address.street !== initialData?.address.street ||
+      address.city !== initialData?.address.city ||
+      address.state !== initialData?.address.state ||
+      address.zipCode !== initialData?.address.zipCode;
+
+    setHasChanges(hasFormChanged);
+  }, [name, phoneNumber, address, initialData]);
 
   const validateForm = () => {
     const newErrors = {};
@@ -178,7 +192,7 @@ const UpdateUserInfo = ({ initialData, onRefresh }) => {
           variant="primary"
           type="submit"
           onClick={handleUpdateUserInfo}
-          disabled={updateUserInfoIsLoading}
+          disabled={updateUserInfoIsLoading || !hasChanges}
         >
           Update Info
         </StyledButton>
