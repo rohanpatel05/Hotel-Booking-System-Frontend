@@ -8,3 +8,5 @@ export { default as OverlayedSpinner } from "./Spinner.jsx";
 export { default as TopBar } from "./TopBar/index.jsx";
 export { default as WelcomeSection } from "./Welcome/index.jsx";
 export { default as CheckoutForm } from "./CheckoutForm/index.jsx";
+export { default as UpdateUserInfo } from "./UpdateUserInfo.jsx";
+export { default as UpdatePassword } from "./UpdatePassword.jsx";

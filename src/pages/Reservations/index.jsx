@@ -1,12 +1,11 @@
-/* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { TopBar, OverlayedSpinner as Spinner, StyledErrorAlert } from '../../components/index.js';
 import { useQuery } from '@tanstack/react-query';
 import { GET_RESERVATIONS_QUERY_KEY } from '../../config/queryKeys.js';
 import { fetchReservations } from '../../services/bookingService.js';
 import useAuth from '../../hooks/useAuth.js';
 import { useAuthStatus } from '../../hooks/useAuthStatus.js';
-import NotFound from '../NotFound/index.jsx';
+import { NotFound } from '../index.js';
 import { useSelector } from 'react-redux';
 import { 
     NoReservationsWrapper, 
@@ -31,17 +30,6 @@ function Reservations() {
         queryKey: [GET_RESERVATIONS_QUERY_KEY, authState.accessToken],
         queryFn: () => fetchReservations(authState.accessToken),
     });
-
-    useEffect(() => {
-        console.log('data: ', data);
-        console.log('rooms: ', rooms);
-    }, [data]);
-
-    useEffect(() => {
-        if (data && data.booking) {
-            console.log('Grouped reservations object: ', groupReservationsByDate(data.booking));
-        }
-    }, [data]);
 
     if (!isAuthenticated) {
         return <NotFound />;

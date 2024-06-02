@@ -26,3 +26,44 @@ export const refreshTokenQuery = async (refreshBody) => {
   const { data } = await axiosInstance.post(`/refresh`, refreshBody);
   return data;
 };
+
+export const getUserInfo = async (userId) => {
+  const { data } = await axiosInstance.get(
+    `${userUrlEndpoint}/user-info/${userId}`
+  );
+  return data;
+};
+
+export const updateUserInfo = async ({ accessToken, userId, userInfoBody }) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  };
+  const { data } = await axiosInstance.put(
+    `${userUrlEndpoint}/update-profile/${userId}`,
+    userInfoBody,
+    config
+  );
+
+  return data;
+};
+
+export const updatePassword = async ({
+  accessToken,
+  userId,
+  updatePasswordBody,
+}) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  };
+  const { data } = await axiosInstance.put(
+    `${userUrlEndpoint}/change-password/${userId}`,
+    updatePasswordBody,
+    config
+  );
+
+  return data;
+};

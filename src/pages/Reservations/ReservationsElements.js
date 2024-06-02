@@ -6,7 +6,7 @@ export const NoReservationsWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 70vh;
+  min-height: 70vh;
   text-align: center;
 `;
 
