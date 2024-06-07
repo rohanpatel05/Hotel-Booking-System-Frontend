@@ -6,6 +6,21 @@ export const Title = styled.h1`
   font-family: KiwiMaruRegular;
   font-size: 60px;
   text-align: center;
+
+  @media (max-width: 768px) {
+    font-size: 40px;
+    padding: 20px 10px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 25px;
+    padding: 15px 10px;
+  }
+
+  @media (max-width: 240px) {
+    font-size: 20px;
+    padding: 15px 10px;
+  }
 `;
 
 export const StyledContainer = styled.div`
@@ -15,6 +30,14 @@ export const StyledContainer = styled.div`
   display: flex;
   flex-direction: column;
   overflow: hidden;
+
+  @media (max-width: 768px) {
+    margin: 0px 15px;
+  }
+
+  @media (max-width: 480px) {
+    margin: 0px 10px;
+  }
 `;
 
 export const StyledRow = styled.div`
@@ -43,7 +66,6 @@ export const RoomCard = styled.div`
     & > .room-image {
       height: 135px;
       opacity: 1;
-      // margin-right: 20px;
       transform: translateX(0);
     }
 
@@ -52,12 +74,16 @@ export const RoomCard = styled.div`
       transform: translateX(0);
     }
   }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
 export const RoomImage = styled.img`
   height: 0px;
   width: auto;
-
   object-fit: cover;
   object-position: center;
   transition: all 0.3s ease, width 0.3s ease;
@@ -70,6 +96,11 @@ export const TextWrapper = styled.div`
   padding: 20px 40px 5px;
   flex-grow: 1;
   max-width: 50%;
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+    padding: 10px 20px;
+  }
 `;
 
 export const RoomTitle = styled.h3`
@@ -78,6 +109,10 @@ export const RoomTitle = styled.h3`
   color: ${colors.black};
   margin: 0;
   transition: color 0.3s ease;
+
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
 `;
 
 export const RoomDescription = styled.p`
@@ -85,6 +120,10 @@ export const RoomDescription = styled.p`
   font-size: 12px;
   color: ${colors.black};
   margin-top: 10px;
+
+  @media (max-width: 768px) {
+    font-size: 10px;
+  }
 `;
 
 export const ArrowIcon = styled.div`
@@ -97,4 +136,10 @@ export const ArrowIcon = styled.div`
   transition: all 0.3s ease;
   opacity: 0;
   transform: translateX(20px);
+
+  @media (max-width: 768px) {
+    position: static;
+    transform: none;
+    margin-top: 10px;
+  }
 `;

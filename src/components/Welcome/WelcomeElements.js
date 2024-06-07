@@ -7,24 +7,44 @@ export const TopBarWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 20px 35px 0px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 20px;
+  }
 `;
 
 export const TopBarFiller = styled.div`
   width: 271px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-bottom: 10px;
+  }
 `;
 
 export const Brand = styled.h1`
   font-family: Italianno;
   font-size: 50px;
-
   color: ${colors.white};
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+  @media (max-width: 768px) {
+    font-size: 40px;
+    text-align: center;
+  }
 `;
 
 export const ButtonWraper = styled.div`
   display: flex;
   height: 55px;
   align-items: center;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    height: auto;
+  }
 `;
 
 export const AccommodationsButton = styled(Button)`
@@ -32,10 +52,15 @@ export const AccommodationsButton = styled(Button)`
   border-color: ${colors.white};
   border-radius: 35px;
   font-family: "Inter", sans-serif;
-
   font-size: 15px;
   font-weight: bold;
   margin-right: 20px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
 `;
 
 export const BookNowButton = styled(Button)`
@@ -43,10 +68,13 @@ export const BookNowButton = styled(Button)`
   border-color: ${colors.white};
   border-radius: 35px;
   font-family: "Inter", sans-serif;
-
   font-size: 15px;
   font-weight: bold;
   color: ${colors.black};
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 export const DescriptionTextWrapper = styled.p`
@@ -56,6 +84,11 @@ export const DescriptionTextWrapper = styled.p`
   font-size: 50px;
   white-space: pre-line;
   padding: 30px 0px;
+
+  @media (max-width: 768px) {
+    font-size: 35px;
+    padding: 20px;
+  }
 `;
 
 export const LandscapeImage = styled.img`
@@ -72,5 +105,9 @@ export const LandscapeImage = styled.img`
   &:hover {
     transform: scale(1.05);
     opacity: 0.9;
+  }
+
+  @media (max-width: 768px) {
+    width: 90%;
   }
 `;

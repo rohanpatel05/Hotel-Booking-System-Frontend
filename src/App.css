@@ -6,19 +6,27 @@
 
 body {
     background: #395165;
+    font-family: Arial, sans-serif;
+    font-size: 1rem; 
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
 }
 
 @font-face {
     font-family: 'Italianno';
     src: url('./assets/fonts/Italianno-Regular.ttf') format('truetype');
+    font-display: swap;
 }
 
 @font-face {
     font-family: 'KiwiMaruRegular';
     src: url('./assets/fonts/KiwiMaru-Regular.ttf') format('truetype');
+    font-display: swap;
 }
 
 @font-face {
     font-family: 'KiwiMaruMedium';
     src: url('./assets/fonts/KiwiMaru-Medium.ttf') format('truetype');
+    font-display: swap;
 }

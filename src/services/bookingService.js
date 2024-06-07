@@ -4,7 +4,7 @@ export const bookingUrlEndpoint = "/booking";
 
 export const checkAvailability = async (checkAvailabilityBody) => {
   const { data } = await axiosInstance.post(
-    `${bookingUrlEndpoint}/checkAvailability`,
+    `${bookingUrlEndpoint}/check-availability`,
     checkAvailabilityBody
   );
   return data;

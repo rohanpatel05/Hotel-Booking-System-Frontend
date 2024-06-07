@@ -17,25 +17,25 @@ function Footer() {
       <Title>The Hotel</Title>
       <Container>
         <Row>
-          <Col>
+          <Col xs={12} md={4}>
             <AlignedText $align="left">{COMPANY_ADDRESS}</AlignedText>
           </Col>
-          <Col>
+          <Col xs={12} md={4}>
             <AlignedText $align="center">{COMPANY_EMAIL}</AlignedText>
           </Col>
-          <Col>
+          <Col xs={12} md={4}>
             <AlignedText $align="right">{COMPANY_PHONE_NUMBER}</AlignedText>
           </Col>
         </Row>
         <StyledHr />
         <Row>
-          <Col>
+          <Col xs={12} md={4}>
             <AlignedText $align="left">{COMPANY_FACEBOOK}</AlignedText>
           </Col>
-          <Col>
+          <Col xs={12} md={4}>
             <AlignedText $align="center">{COMPANY_INSTAGRAM}</AlignedText>
           </Col>
-          <Col>
+          <Col xs={12} md={4}>
             <AlignedText $align="right">{COMPANY_POLICY}</AlignedText>
           </Col>
         </Row>

@@ -33,14 +33,14 @@ function Room() {
       <BodyWrapper>
         <Container fluid>
           <Row>
-            <Col md={6}>
+            <Col md={6} sm={12}>
               <RoomImageCard>
                 <CardBody>
                   <RoomImage src={RoomPhoto} alt="Room image." />
                 </CardBody>
               </RoomImageCard>
             </Col>
-            <Col md={6}>
+            <Col md={6} sm={12}>
               <InfoTextCard>
                 <CardBody>
                   <InfoText>{roomInfo.description}</InfoText>
