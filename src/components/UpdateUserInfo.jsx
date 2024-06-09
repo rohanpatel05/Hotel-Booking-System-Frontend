@@ -17,11 +17,8 @@ import {
   stateRegex,
   zipCodeRegex,
 } from "../config/regex";
-import useAuth from "../hooks/useAuth";
 
 const UpdateUserInfo = ({ initialData, onRefresh }) => {
-  const { authState } = useAuth();
-  
   const [name, setName] = useState(initialData?.name || "");
   const [phoneNumber, setPhoneNumber] = useState(
     initialData?.phoneNumber || ""
@@ -75,11 +72,7 @@ const UpdateUserInfo = ({ initialData, onRefresh }) => {
 
     const userInfoBody = { name: name, phoneNumber: phoneNumber, address: address };
 
-    updateUserInfo({
-      accessToken: authState.accessToken,
-      userId: authState.user._id,
-      userInfoBody      
-    }, {
+    updateUserInfo( userInfoBody, {
       onSuccess: () => { onRefresh(); }
     });
   };

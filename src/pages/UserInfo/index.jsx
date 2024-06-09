@@ -3,7 +3,6 @@ import { TopBar, OverlayedSpinner as Spinner, UpdateUserInfo, UpdatePassword } f
 import { Card } from 'react-bootstrap';
 import { StyledCard, StyledButton, CardTitle, ErrorMessage } from './UserInfoElements';
 import { useAuthStatus } from '../../hooks/useAuthStatus';
-import useAuth from '../../hooks/useAuth';
 import { NotFound } from '../index';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { GET_USERINFO_QUERY_KEY } from '../../config/queryKeys';
@@ -32,7 +31,6 @@ const formatAddress = (address) => {
 function UserInfo() {
   const queryClient = useQueryClient();
   const isAuthenticated = useAuthStatus();
-  const { authState } = useAuth();
 
   if (!isAuthenticated) {
     return <NotFound />;
@@ -41,34 +39,33 @@ function UserInfo() {
   const [activeTab, setActiveTab] = useState('info');
 
   const { data: getUserInfoData, isLoading: getUserInfoIsLoading, isError: getUserInfoIsError, error: getUserInfoError } = useQuery({
-    queryKey: [GET_USERINFO_QUERY_KEY, authState.user._id],
-    queryFn: () => getUserInfo(authState.user._id)
+    queryKey: [GET_USERINFO_QUERY_KEY],
+    queryFn: () => getUserInfo()
   });
 
   const handleRefresh = async () => {
     try {
-      console.log(`Refreshing user info data`);
-      await queryClient.invalidateQueries({ queryKey: [GET_USERINFO_QUERY_KEY, authState.user._id] });
-      console.log(getUserInfoData);
+      await queryClient.invalidateQueries({ queryKey: [GET_USERINFO_QUERY_KEY] });
     } catch (error) {
-      console.error("Error refreshing data:", error);
+      console.error("Error refreshing data (from user info page):", error);
     }
   };
 
   const renderContent = () => {
+    if (getUserInfoIsError) {
+      return <ErrorMessage>Error getting user info: {getUserInfoError.message}</ErrorMessage> ;
+    }
     switch (activeTab) {
       case 'info':
         return (
           <>
             <CardTitle>Account Information</CardTitle>
-            {getUserInfoData ? (
-              <>
-                <p><strong>Name:</strong> {getUserInfoData.user.name}</p>
-                <p><strong>Email:</strong> {getUserInfoData.user.email}</p>
-                {getUserInfoData.user.phoneNumber ? (<p><strong>Phone Number:</strong> {getUserInfoData.user.phoneNumber}</p>) : null}
-                {getUserInfoData.user.address ? (<p><strong>Address:</strong> {formatAddress(getUserInfoData.user.address)}</p>) : null}
-              </>
-            ) : getUserInfoIsError ? (<ErrorMessage>Error getting user info: {getUserInfoError.message}</ErrorMessage>) : null}
+            <>
+              <p><strong>Name:</strong> {getUserInfoData.user.name}</p>
+              <p><strong>Email:</strong> {getUserInfoData.user.email}</p>
+              {getUserInfoData.user.phoneNumber ? (<p><strong>Phone Number:</strong> {getUserInfoData.user.phoneNumber}</p>) : null}
+              {getUserInfoData.user.address ? (<p><strong>Address:</strong> {formatAddress(getUserInfoData.user.address)}</p>) : null}
+            </>
           </>
         );
       case 'update':

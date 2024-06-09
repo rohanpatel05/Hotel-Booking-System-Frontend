@@ -1,11 +1,16 @@
-import React, { createContext, useReducer } from "react";
+import React, {
+  createContext,
+  useReducer,
+  useEffect,
+  useCallback,
+} from "react";
 import PropTypes from "prop-types";
+import { getUserInfo, refreshQuery } from "../services/userService";
+import Cookies from "js-cookie";
+
+const refreshInterval = 14 * 60 * 1000; // 14 mins in ms
 
 const initialState = {
-  accessToken: null,
-  accessTokenExpiration: null,
-  refreshToken: null,
-  refreshTokenExpiration: null,
   user: null,
 };
 
@@ -15,29 +20,12 @@ const authReducer = (state, action) => {
     case "SIGN_UP":
       return {
         ...state,
-        accessToken: action.payload.accessToken,
-        accessTokenExpiration:
-          Date.now() + action.payload.accessTokenExpiration * 1000,
-        refreshToken: action.payload.refreshToken,
-        refreshTokenExpiration:
-          Date.now() + action.payload.refreshTokenExpiration * 1000,
         user: action.payload.user,
       };
     case "SIGN_OUT":
       return {
         ...state,
-        accessToken: null,
-        accessTokenExpiration: null,
-        refreshToken: null,
-        refreshTokenExpiration: null,
         user: null,
-      };
-    case "REFRESH_ACCESS_TOKEN":
-      return {
-        ...state,
-        accessToken: action.payload.accessToken,
-        accessTokenExpiration:
-          Date.now() + action.payload.accessTokenExpiration * 1000,
       };
     default:
       return state;
@@ -49,26 +37,58 @@ const AuthContext = createContext(null);
 export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
-  const signIn = (data) => {
+  const signIn = useCallback((data) => {
     dispatch({ type: "SIGN_IN", payload: data });
-  };
+  }, []);
 
-  const signUp = (data) => {
+  const signUp = useCallback((data) => {
     dispatch({ type: "SIGN_UP", payload: data });
-  };
+  }, []);
 
-  const signOut = () => {
+  const signOut = useCallback(async () => {
     dispatch({ type: "SIGN_OUT" });
-  };
+  }, []);
 
-  const refreshAccessToken = (data) => {
-    dispatch({ type: "REFRESH_ACCESS_TOKEN", payload: data });
-  };
+  const refreshAccessToken = useCallback(async () => {
+    try {
+      const data = await refreshQuery();
+
+      signIn({ user: data.user });
+    } catch (error) {
+      console.error("Failed to refresh token:", error);
+      signOut();
+    }
+  }, [signUp, signIn, signOut]);
+
+  useEffect(() => {
+    const checkAuthStatus = async () => {
+      const accessToken = Cookies.get("accessToken");
+      const refreshToken = Cookies.get("refreshToken");
+
+      if (accessToken && refreshToken) {
+        try {
+          const data = await getUserInfo();
+          if (data) {
+            signIn({ user: data.user });
+          }
+        } catch (error) {
+          console.error("Failed to check auth status:", error);
+        }
+      }
+    };
+
+    checkAuthStatus();
+  }, [signIn]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      refreshAccessToken();
+    }, refreshInterval);
+    return () => clearInterval(interval);
+  }, [refreshAccessToken]);
 
   return (
-    <AuthContext.Provider
-      value={{ authState: state, signIn, signOut, signUp, refreshAccessToken }}
-    >
+    <AuthContext.Provider value={{ authState: state, signIn, signOut, signUp }}>
       {children}
     </AuthContext.Provider>
   );

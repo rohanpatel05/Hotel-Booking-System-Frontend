@@ -9,10 +9,8 @@ import {
 } from "../pages/UserInfo/UserInfoElements";
 import { useUpdatePassword } from "../hooks/useUpdatePassword";
 import { passwordRegex } from "../config/regex";
-import useAuth from "../hooks/useAuth";
 
 const UpdatePassword = () => {
-  const { authState } = useAuth();
 
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -54,11 +52,7 @@ const UpdatePassword = () => {
 
     const updatePasswordBody = { currentPassword: currentPassword, newPassword: newPassword };
 
-    updatePassword({
-      accessToken: authState.accessToken,
-      userId: authState.user._id,
-      updatePasswordBody
-    });
+    updatePassword( updatePasswordBody );
   };
 
   return (

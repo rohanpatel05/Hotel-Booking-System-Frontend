@@ -4,7 +4,7 @@ import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuthStatus } from "../../hooks/useAuthStatus.js"
 import { useSignOut } from "../../hooks/useSignOut.js"
-import {OverlayedSpinner as Spinner} from "../../components/index.js";
+import { OverlayedSpinner as Spinner } from "../../components/index.js";
 import useAuth from '../../hooks/useAuth.js';
 
 function TopBar() {
@@ -16,6 +16,10 @@ function TopBar() {
   const { authState } = useAuth();
 
   const { signOut, isLoading } = useSignOut(); 
+
+  const handleBrandClick = () => {
+    navigate("/");
+  }
 
   const handleSignInClick = () => {
     navigate("/signin");
@@ -42,7 +46,7 @@ function TopBar() {
   return (
     <Navbar>
       <Container>
-        <StyledNavBrand href="/">The Hotel</StyledNavBrand>
+        <StyledNavBrand onClick={handleBrandClick}>The Hotel</StyledNavBrand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
             <Nav>

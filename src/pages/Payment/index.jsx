@@ -1,17 +1,14 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { BASE_URL } from '../../config/url';
 import { loadStripe } from '@stripe/stripe-js'; 
-import useAuth from '../../hooks/useAuth.js';
 import { usePaymentIntent } from "../../hooks/usePaymentIntent.js";
 import { useSelector } from "react-redux";
 import { NotFound } from "../index.js"
 import { CheckoutForm, OverlayedSpinner as Spinner, StyledErrorAlert } from "../../components/index.js";
 import { Elements } from "@stripe/react-stripe-js";
 import { Container, InfoSectionWrapper, Title, OrderInfo } from "./PaymentElements.js"
+import { axiosInstancePublic } from '../../config/axiosInstances.js';
 
 function Payment() {
-    const { authState } = useAuth();
 
     const [stripePromise, setStripePromise] = useState(null);
     const [clientSecret, setClientSecret] = useState("");
@@ -28,19 +25,16 @@ function Payment() {
 
     useEffect(() => {
         const fetchPaymentIntent = async () => {
-            if (totalAmount && authState.accessToken) {
+            if (totalAmount) {
 
                 const paymentIntentBody = { amount: totalAmount };
 
-                getPaymentIntent({
-                    accessToken: authState.accessToken,
-                    paymentIntentBody
-                });
+                getPaymentIntent(paymentIntentBody);
             }
         };
 
         fetchPaymentIntent();
-    }, [totalAmount, authState.accessToken, getPaymentIntent]);
+    }, [totalAmount, getPaymentIntent]);
 
     useEffect(() => {
         if (paymentIntentData) {
@@ -51,7 +45,7 @@ function Payment() {
     useEffect(() => {
         const fetchStripeConfig = async () => {
             try {
-                const response = await axios.get(`${BASE_URL}/payment/config`);
+                const response = await axiosInstancePublic.get(`/payment/config`);
                 const publishableKey = response.data.publishableKey;
                 if (!publishableKey) {
                     throw new Error("Missing publishable key");

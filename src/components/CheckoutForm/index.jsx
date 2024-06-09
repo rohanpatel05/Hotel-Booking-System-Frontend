@@ -4,15 +4,12 @@ import { useState } from "react";
 import { useStripe, useElements } from "@stripe/react-stripe-js";
 import { Container, Card, Button, PaymentMessage } from "./CheckoutFormElements";
 import { useCreateBooking } from "../../hooks/useCreateBooking"
-import useAuth from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import {OverlayedSpinner as Spinner} from "../index"
-import axios from "axios";
-import { BASE_URL } from "../../config/url";
+import { axiosInstancePublic } from "../../config/axiosInstances";
 
 export default function CheckoutForm() {
-  const { authState } = useAuth();
   const navigate = useNavigate();
 
   const stripe = useStripe();
@@ -51,7 +48,7 @@ export default function CheckoutForm() {
       const paymentMethodId = paymentIntent.payment_method;
   
       try {
-        const response = await axios.post(`${BASE_URL}/payment/retrieve-payment-method`, {
+        const response = await axiosInstancePublic.post(`/payment/retrieve-payment-method`, {
           paymentMethodId: paymentMethodId,
         });
   
@@ -72,7 +69,7 @@ export default function CheckoutForm() {
         };
 
   
-        createBooking({accessToken: authState.accessToken, createBookingBody}, {
+        createBooking({createBookingBody}, {
           onError: (error) => {
             if (error.response) {
               error.message =

@@ -1,20 +1,11 @@
-import axiosInstance from "../config/axiosInstance";
+import { axiosInstanceProtected } from "../config/axiosInstances";
 
 export const paymentUrlEndpoint = "/payment";
 
-export const paymentIntentQuery = async ({
-  accessToken,
-  paymentIntentBody,
-}) => {
-  const config = {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  };
-  const { data } = await axiosInstance.post(
+export const paymentIntentQuery = async (paymentIntentBody) => {
+  const { data } = await axiosInstanceProtected.post(
     `${paymentUrlEndpoint}/intent`,
-    paymentIntentBody,
-    config
+    paymentIntentBody
   );
 
   return data;

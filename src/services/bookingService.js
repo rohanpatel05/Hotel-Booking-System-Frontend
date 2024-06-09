@@ -1,40 +1,29 @@
-import axiosInstance from "../config/axiosInstance";
+import {
+  axiosInstanceProtected,
+  axiosInstancePublic,
+} from "../config/axiosInstances";
 
 export const bookingUrlEndpoint = "/booking";
 
 export const checkAvailability = async (checkAvailabilityBody) => {
-  const { data } = await axiosInstance.post(
+  const { data } = await axiosInstancePublic.post(
     `${bookingUrlEndpoint}/check-availability`,
     checkAvailabilityBody
   );
   return data;
 };
 
-export const createBooking = async ({ accessToken, createBookingBody }) => {
-  const config = {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  };
-  const { data } = await axiosInstance.post(
+export const createBooking = async (createBookingBody) => {
+  const { data } = await axiosInstanceProtected.post(
     `${bookingUrlEndpoint}/book`,
-    createBookingBody,
-    config
+    createBookingBody
   );
-
   return data;
 };
 
-export const fetchReservations = async (accessToken) => {
-  const config = {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  };
-
-  const { data } = await axiosInstance.get(
-    `${bookingUrlEndpoint}/by-user`,
-    config
+export const fetchReservations = async () => {
+  const { data } = await axiosInstanceProtected.get(
+    `${bookingUrlEndpoint}/by-user`
   );
   return data;
 };

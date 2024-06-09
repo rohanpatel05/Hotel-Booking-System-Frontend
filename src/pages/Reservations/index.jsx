@@ -3,7 +3,6 @@ import { TopBar, OverlayedSpinner as Spinner, StyledErrorAlert } from '../../com
 import { useQuery } from '@tanstack/react-query';
 import { GET_RESERVATIONS_QUERY_KEY } from '../../config/queryKeys.js';
 import { fetchReservations } from '../../services/bookingService.js';
-import useAuth from '../../hooks/useAuth.js';
 import { useAuthStatus } from '../../hooks/useAuthStatus.js';
 import { NotFound } from '../index.js';
 import { useSelector } from 'react-redux';
@@ -19,7 +18,6 @@ import groupReservationsByDate from '../../config/groupReservationsByDate.js';
 import { roomTypeMap } from '../../config/roomsMap.js';
 
 function Reservations() {
-    const { authState } = useAuth();
     const isAuthenticated = useAuthStatus();
     const navigate = useNavigate();
     
@@ -27,8 +25,8 @@ function Reservations() {
     const [selectedReservationKey, setSelectedReservationKey] = useState(null);
 
     const { data, isError, isLoading, error } = useQuery({
-        queryKey: [GET_RESERVATIONS_QUERY_KEY, authState.accessToken],
-        queryFn: () => fetchReservations(authState.accessToken),
+        queryKey: [GET_RESERVATIONS_QUERY_KEY],
+        queryFn: () => fetchReservations(),
     });
 
     if (!isAuthenticated) {

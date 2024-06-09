@@ -16,10 +16,6 @@ export const useSignIn = () => {
     mutationFn: signInQuery,
     onSuccess: (response) => {
       signIn({
-        accessToken: response.accessToken,
-        accessTokenExpiration: response.accessTokenExpiration,
-        refreshToken: response.refreshToken,
-        refreshTokenExpiration: response.refreshTokenExpiration,
         user: response.user,
       });
 

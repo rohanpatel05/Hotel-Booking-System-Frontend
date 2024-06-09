@@ -5,12 +5,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Home, Room, Booking, SignUp, SignIn, NotFound, Payment, Completion, Reservations, UserInfo } from "./pages/index.js"
 import { HideAuth } from "./components/RouteControls.js"
 import { AuthProvider } from "./contexts/AuthProvider.js"
-import { useAutoRefreshToken } from "./hooks/useAutoRefreshToken.js";
 
 const queryClient = new QueryClient();
 
 const AuthenticatedApp = () => {
-  useAutoRefreshToken(); 
 
   return (
     <Router>
