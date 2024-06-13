@@ -5,15 +5,18 @@ import { useSelector } from "react-redux";
 import { NotFound } from "../index.js"
 import { CheckoutForm, OverlayedSpinner as Spinner, StyledErrorAlert } from "../../components/index.js";
 import { Elements } from "@stripe/react-stripe-js";
-import { Container, InfoSectionWrapper, Title, OrderInfo } from "./PaymentElements.js"
+import { InfoContainer, InfoSectionWrapper, Title, OrderInfo, PaymentInfoWrapper, InfoTitle, PageContainer, ContentWrapper } from "./PaymentElements.js"
 import { axiosInstancePublic } from '../../config/axiosInstances.js';
+import { format } from 'date-fns';
+import colors from '../../config/colors.js';
+import { Container, Row, Col } from "react-bootstrap";
 
 function Payment() {
-
     const [stripePromise, setStripePromise] = useState(null);
     const [clientSecret, setClientSecret] = useState("");
 
     const { data: checkAvailabilityData, checkInDate, checkOutDate, totalAmount } = useSelector(state => state.availability);
+    const roomsInfo = useSelector((state) => state.rooms.value);
 
     const {
         mutate: getPaymentIntent,
@@ -74,29 +77,54 @@ function Payment() {
     }
 
     return (
-        <>
-            <Container>
-                <Title>Order Info</Title>
-                <InfoSectionWrapper>
-                    <OrderInfo>Check-in Date: {checkInDate}</OrderInfo>
-                    <br/>
-                    <OrderInfo>Check-out Date: {checkOutDate}</OrderInfo>
-                </InfoSectionWrapper>
+        <PageContainer>
+            <Title>Secure Checkout</Title>
+            <ContentWrapper>
+                <Container fluid >
+                    <Row >
+                        <Col md={6}>
+                            <InfoContainer>
+                                <InfoTitle>Order Info</InfoTitle>
+                                <InfoSectionWrapper>
+                                    <OrderInfo>Check-in Date: {format(new Date(checkInDate), 'MMMM do, yyyy')}</OrderInfo>
+                                    <br/>
+                                    <OrderInfo>Check-out Date: {format(new Date(checkOutDate), 'MMMM do, yyyy')}</OrderInfo>
+                                </InfoSectionWrapper>
 
-                <InfoSectionWrapper>
-                    {checkAvailabilityData.map((roomType, index) => (
-                        <div key={index}>{roomType.rooms.length} {roomType.type} {roomType.rooms.length === 1 ? "room" : "rooms" }.</div>
-                    ))}
-                </InfoSectionWrapper>
+                                <InfoSectionWrapper>
+                                    <OrderInfo style={{fontWeight: "bold", color: colors.pale}}>Rooms Selected</OrderInfo>
+                                    <br />
 
-                <OrderInfo>Total amount: ${totalAmount}</OrderInfo>
-            </Container>
-            {clientSecret && stripePromise && (
-                <Elements stripe={stripePromise} options={{ clientSecret }}>
-                    <CheckoutForm />
-                </Elements>
-            )}
-        </>
+                                    {checkAvailabilityData.map((roomType, index) => (
+                                        <PaymentInfoWrapper key={index}>
+                                            <OrderInfo>{roomType.rooms.length}X {roomType.type} {roomType.rooms.length === 1 ? "Room" : "Rooms" } </OrderInfo>
+                                            <OrderInfo>$ {(roomsInfo.find((room) => room.type === roomType.type).price)*roomType.rooms.length}.00</OrderInfo>
+                                        </PaymentInfoWrapper>
+                                    ))}
+
+                                    <br />
+                                    <PaymentInfoWrapper>
+                                        <OrderInfo>Total Amount</OrderInfo>
+                                        <OrderInfo>$ {totalAmount}.00</OrderInfo>    
+                                    </PaymentInfoWrapper> 
+                                </InfoSectionWrapper>
+
+                            </InfoContainer>
+                        </Col>
+
+                        <Col md={6}>
+                            <div>
+                                {clientSecret && stripePromise && (
+                                    <Elements stripe={stripePromise} options={{ clientSecret }}>
+                                        <CheckoutForm />
+                                    </Elements>
+                                )}
+                            </div>
+                        </Col>
+                    </Row>
+                </ Container>
+            </ContentWrapper>
+        </ PageContainer>
     )
 }
 
