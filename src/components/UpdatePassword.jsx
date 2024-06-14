@@ -112,9 +112,7 @@ const UpdatePassword = () => {
         {updatePasswordData ? (
           <SuccessMessage>{updatePasswordData.message}</SuccessMessage>
         ) : updatePasswordIsError ? (
-          <ErrorMessage>
-            Error updating password: {updatePasswordError.message}
-          </ErrorMessage>
+          <ErrorMessage>{updatePasswordError.message}</ErrorMessage>
         ) : null}
       </StyledForm>
     </>

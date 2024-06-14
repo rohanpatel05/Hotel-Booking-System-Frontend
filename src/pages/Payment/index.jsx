@@ -5,7 +5,16 @@ import { useSelector } from "react-redux";
 import { NotFound } from "../index.js"
 import { CheckoutForm, OverlayedSpinner as Spinner, StyledErrorAlert } from "../../components/index.js";
 import { Elements } from "@stripe/react-stripe-js";
-import { InfoContainer, InfoSectionWrapper, Title, OrderInfo, PaymentInfoWrapper, InfoTitle, PageContainer, ContentWrapper } from "./PaymentElements.js"
+import { 
+    InfoContainer, 
+    InfoSectionWrapper, 
+    Title, 
+    OrderInfo, 
+    PaymentInfoWrapper, 
+    InfoTitle, 
+    PageContainer, 
+    ContentWrapper 
+} from "./PaymentElements.js"
 import { axiosInstancePublic } from '../../config/axiosInstances.js';
 import { format } from 'date-fns';
 import colors from '../../config/colors.js';
@@ -98,7 +107,7 @@ function Payment() {
                                     {checkAvailabilityData.map((roomType, index) => (
                                         <PaymentInfoWrapper key={index}>
                                             <OrderInfo>{roomType.rooms.length}X {roomType.type} {roomType.rooms.length === 1 ? "Room" : "Rooms" } </OrderInfo>
-                                            <OrderInfo>$ {(roomsInfo.find((room) => room.type === roomType.type).price)*roomType.rooms.length}.00</OrderInfo>
+                                            <OrderInfo>$ {(roomsInfo.find((room) => room.type === roomType.type)?.price)*roomType.rooms?.length}.00</OrderInfo>
                                         </PaymentInfoWrapper>
                                     ))}
 

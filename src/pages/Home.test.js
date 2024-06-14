@@ -2,28 +2,28 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import Home from "./Home.jsx";
 
-jest.mock("./Welcome/index.jsx", () => {
+jest.mock("../components/Welcome/index.jsx", () => {
   return {
     __esModule: true,
     default: () => <div>WelcomeSection</div>,
   };
 });
 
-jest.mock("./GuestReview/index.jsx", () => {
+jest.mock("../components/GuestReview/index.jsx", () => {
   return {
     __esModule: true,
     default: () => <div>GuestReviewSection</div>,
   };
 });
 
-jest.mock("./Accommodations/index.jsx", () => {
+jest.mock("../components/Accommodations/index.jsx", () => {
   return {
     __esModule: true,
     default: () => <div>AccommodationsSection</div>,
   };
 });
 
-jest.mock("./AboutUs/index.jsx", () => {
+jest.mock("../components/AboutUs/index.jsx", () => {
   return {
     __esModule: true,
     default: () => <div>AboutUsSection</div>,

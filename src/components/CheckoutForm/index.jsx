@@ -6,7 +6,7 @@ import { Container, Card, Button, PaymentMessage } from "./CheckoutFormElements"
 import { useCreateBooking } from "../../hooks/useCreateBooking"
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import {OverlayedSpinner as Spinner} from "../index"
+import { OverlayedSpinner as Spinner } from "../index"
 import { axiosInstancePublic } from "../../config/axiosInstances";
 
 export default function CheckoutForm() {
@@ -69,7 +69,7 @@ export default function CheckoutForm() {
         };
 
   
-        createBooking({createBookingBody}, {
+        createBooking(createBookingBody, {
           onError: (error) => {
             if (error.response) {
               error.message =

@@ -40,12 +40,12 @@ const UpdateUserInfo = ({ initialData, onRefresh }) => {
 
   useEffect(() => {
     const hasFormChanged =
-      name !== initialData?.name ||
-      phoneNumber !== initialData?.phoneNumber ||
-      address.street !== initialData?.address.street ||
-      address.city !== initialData?.address.city ||
-      address.state !== initialData?.address.state ||
-      address.zipCode !== initialData?.address.zipCode;
+      (name !== "" && name !== initialData?.name) ||
+      (phoneNumber !== "" && phoneNumber !== initialData?.phoneNumber) ||
+      (address.street !== "" && address.street !== initialData?.address?.street) ||
+      (address.city !== "" && address.city !== initialData?.address?.city) ||
+      (address.state !== "" && address.state !== initialData?.address?.state) ||
+      (address.zipCode !== "" && address.zipCode !== initialData?.address?.zipCode);
 
     setHasChanges(hasFormChanged);
   }, [name, phoneNumber, address, initialData]);
@@ -58,7 +58,7 @@ const UpdateUserInfo = ({ initialData, onRefresh }) => {
     if (address.street && !streetRegex.test(address.street))
       newErrors.street = "Invalid street address";
     if (address.city && !cityRegex.test(address.city)) newErrors.city = "Invalid city";
-    if (address.state && !stateRegex.test(address.state)) newErrors.state = "Invalid state";
+    if (address.state && !stateRegex.test(address.state)) newErrors.state = "Invalid state (must be 2 letter abbreviations and upper case)";
     if (address.zipCode && !zipCodeRegex.test(address.zipCode))
       newErrors.zipCode = "Invalid zip code";
 
@@ -192,9 +192,7 @@ const UpdateUserInfo = ({ initialData, onRefresh }) => {
         {updateUserInfoData ? (
           <SuccessMessage>{updateUserInfoData.message}</SuccessMessage>
         ) : updateUserInfoIsError ? (
-          <ErrorMessage>
-            Error updating user info: {updateUserInfoError.message}
-          </ErrorMessage>
+          <ErrorMessage>{updateUserInfoError.message}</ErrorMessage>
         ) : null}
       </StyledForm>
     </>

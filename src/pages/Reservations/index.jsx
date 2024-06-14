@@ -29,6 +29,14 @@ function Reservations() {
         queryFn: () => fetchReservations(),
     });
 
+    const handleReservationSelection = (key) => {
+        if (selectedReservationKey === key) {
+            setSelectedReservationKey(null);
+        } else {
+            setSelectedReservationKey(key);
+        }
+    };
+
     if (!isAuthenticated) {
         return <NotFound />;
     }
@@ -61,7 +69,7 @@ function Reservations() {
                 </NoReservationsWrapper>
             ) : (
                 Object.entries(groupedReservations).map(([key, reservations]) => (
-                    <ReservationCard key={key} onClick={() => setSelectedReservationKey(key)}>
+                    <ReservationCard key={key} onClick={() => handleReservationSelection(key)}>
                         <div>
                             <strong>Check-In Date:</strong> {new Date(reservations[0].checkInDate).toLocaleDateString()}
                         </div>
