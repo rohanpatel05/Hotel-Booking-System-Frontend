@@ -7,4 +7,5 @@ export const store = configureStore({
     rooms: roomsReducer,
     availability: availabilityReducer,
   },
+  devTools: false,
 });
